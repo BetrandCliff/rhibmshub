@@ -1,0 +1,377 @@
+generator client {
+  provider   = "prisma-client"
+  output     = "../lib/generated/prisma"
+  engineType = "client"
+  runtime    = "workerd"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  SUPER_ADMIN
+  DEPARTMENT_ADMIN
+  LECTURER
+  STUDENT
+  OFFICE_STAFF
+}
+
+enum Permission {
+  VIEW
+  DOWNLOAD
+  EDIT
+}
+
+enum ShareTargetType {
+  USER
+  OFFICE
+  GROUP
+  DEPARTMENT
+}
+
+enum DocumentType {
+  NOTE
+  SHARED_FILE
+}
+
+model User {
+  id           String @id @default(cuid())
+  name         String
+  email        String @unique
+  passwordHash String
+  role         Role   @default(STUDENT)
+  staffPosition   String?
+  staffDepartment String?
+
+  departmentId String?
+  department   Department? @relation(fields: [departmentId], references: [id])
+
+  groupId String?
+  group   AcademicGroup? @relation(fields: [groupId], references: [id])
+
+  officeId String?
+  office   Office? @relation(fields: [officeId], references: [id])
+
+  uploadedDocuments Document[]           @relation("Uploader")
+  sharesSent        Share[]              @relation("Sender")
+  access            UserDocumentAccess[]
+  supervising       Supervision[]         @relation("Supervisor")
+  supervisedBy      Supervision[]         @relation("Supervisee")
+  jobPostings       JobPosting[]
+  mentorProfile     MentorProfile?
+  suggestions       Suggestion[]
+  createdStaffTokens StaffSignupToken[] @relation("StaffTokenCreator")
+  createdPositionOptions StaffPositionOption[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([departmentId])
+  @@index([groupId])
+}
+
+model Faculty {
+  id          String       @id @default(cuid())
+  name        String       @unique
+  departments Department[]
+  createdAt   DateTime     @default(now())
+}
+
+model Department {
+  id   String @id @default(cuid())
+  name String
+  code String @unique
+
+  facultyId String
+  faculty   Faculty @relation(fields: [facultyId], references: [id])
+
+  users     User[]
+  programs  Program[]
+  documents Document[]
+  accesses  DocumentAccessRule[]
+  courses   Course[]
+  jobPostings JobPosting[]
+
+  createdAt DateTime @default(now())
+
+  @@unique([facultyId, name])
+}
+
+model Program {
+  id   String @id @default(cuid())
+  name String
+
+  departmentId String
+  department   Department @relation(fields: [departmentId], references: [id])
+
+  groups    AcademicGroup[]
+  documents Document[]
+
+  createdAt DateTime @default(now())
+}
+
+model Level {
+  id     String          @id @default(cuid())
+  name   String          @unique
+  groups AcademicGroup[]
+}
+
+model AcademicGroup {
+  id   String @id @default(cuid())
+  name String
+
+  programId String
+  levelId   String
+
+  program Program @relation(fields: [programId], references: [id])
+  level   Level   @relation(fields: [levelId], references: [id])
+
+  users    User[]
+  accesses DocumentAccessRule[]
+
+  createdAt DateTime @default(now())
+
+  @@unique([programId, levelId, name])
+}
+
+model Course {
+  id    String @id @default(cuid())
+  code  String @unique
+  title String
+
+  departmentId String
+  department   Department @relation(fields: [departmentId], references: [id])
+
+  documents Document[]
+
+  createdAt DateTime @default(now())
+}
+
+model Office {
+  id   String @id @default(cuid())
+  name String @unique
+
+  users  User[]
+  shares Share[] @relation("OfficeShares")
+}
+
+model Document {
+  id           String @id @default(cuid())
+  title        String
+  originalName String
+  storageKey   String @unique
+  mimeType     String
+  sizeBytes    Int
+
+  type        DocumentType @default(NOTE)
+  description String?
+
+  uploaderId String
+  uploader   User   @relation("Uploader", fields: [uploaderId], references: [id])
+
+  departmentId String?
+  department   Department? @relation(fields: [departmentId], references: [id])
+
+  programId String?
+  program   Program? @relation(fields: [programId], references: [id])
+
+  courseId String?
+  course   Course? @relation(fields: [courseId], references: [id])
+
+  accessRules DocumentAccessRule[]
+  userAccess  UserDocumentAccess[]
+  shares      Share[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([departmentId, programId, courseId])
+  @@index([uploaderId])
+}
+
+model DocumentAccessRule {
+  id String @id @default(cuid())
+
+  documentId String
+  document   Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
+
+  departmentId String?
+  department   Department? @relation(fields: [departmentId], references: [id], onDelete: Cascade)
+
+  groupId String?
+  group   AcademicGroup? @relation(fields: [groupId], references: [id], onDelete: Cascade)
+
+  permission Permission @default(DOWNLOAD)
+
+  @@index([documentId])
+  @@index([groupId])
+  @@index([departmentId])
+}
+
+model UserDocumentAccess {
+  id String @id @default(cuid())
+
+  documentId String
+  document   Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  permission Permission @default(DOWNLOAD)
+
+  @@unique([documentId, userId])
+}
+
+model Share {
+  id String @id @default(cuid())
+
+  documentId String
+  document   Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
+
+  senderId String
+  sender   User   @relation("Sender", fields: [senderId], references: [id])
+
+  targetType ShareTargetType
+
+  recipientUserId       String?
+  recipientOfficeId     String?
+  recipientGroupId      String?
+  recipientDepartmentId String?
+
+  office Office? @relation("OfficeShares", fields: [recipientOfficeId], references: [id])
+
+  permission Permission @default(DOWNLOAD)
+  message    String?
+  expiresAt  DateTime?
+  createdAt  DateTime   @default(now())
+
+  @@index([recipientUserId])
+  @@index([recipientOfficeId])
+  @@index([recipientGroupId])
+  @@index([recipientDepartmentId])
+}
+
+model AuditLog {
+  id         String  @id @default(cuid())
+  userId     String?
+  action     String
+  documentId String?
+  metadata   Json?
+
+  createdAt DateTime @default(now())
+
+  @@index([userId, createdAt])
+  @@index([documentId, createdAt])
+}
+
+enum SupervisionStatus {
+  ACTIVE
+  COMPLETED
+  ON_HOLD
+}
+
+model Supervision {
+  id           String           @id @default(cuid())
+  supervisorId String
+  superviseeId String
+  supervisor   User             @relation("Supervisor", fields: [supervisorId], references: [id], onDelete: Cascade)
+  supervisee   User             @relation("Supervisee", fields: [superviseeId], references: [id], onDelete: Cascade)
+  researchTitle String
+  status       SupervisionStatus @default(ACTIVE)
+  nextMeeting  DateTime?
+  createdAt    DateTime         @default(now())
+  updatedAt    DateTime         @updatedAt
+
+  @@unique([supervisorId, superviseeId])
+  @@index([supervisorId, status])
+  @@index([superviseeId, status])
+}
+
+model Announcement {
+  id          String   @id @default(cuid())
+  title       String
+  summary     String
+  category    String   @default("Campus news")
+  isPublished Boolean  @default(false)
+  publishedAt DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([isPublished, publishedAt])
+}
+
+model Suggestion {
+  id        String   @id @default(cuid())
+  message   String   @db.Text
+  senderId  String?
+  sender    User?    @relation(fields: [senderId], references: [id], onDelete: SetNull)
+  createdAt DateTime @default(now())
+
+  @@index([createdAt])
+}
+
+model StaffSignupToken {
+  id          String    @id @default(cuid())
+  token       String    @unique @db.VarChar(10)
+  expiresAt   DateTime
+  usedAt      DateTime?
+  createdAt   DateTime  @default(now())
+  createdById String
+  createdBy   User      @relation("StaffTokenCreator", fields: [createdById], references: [id], onDelete: Cascade)
+
+  @@index([usedAt, expiresAt])
+}
+
+model StaffPositionOption {
+  id        String   @id @default(cuid())
+  name      String   @unique
+  createdAt DateTime @default(now())
+  createdById String
+  createdBy User     @relation(fields: [createdById], references: [id], onDelete: Cascade)
+
+  @@index([createdAt])
+}
+
+model JobPosting {
+  id           String      @id @default(cuid())
+  title        String
+  organization String
+  location     String?
+  employmentType String   @default("Full-time")
+  description  String      @db.Text
+  applicationUrl String?
+  deadline     DateTime?
+  isActive     Boolean     @default(true)
+  departmentId String?
+  department   Department? @relation(fields: [departmentId], references: [id], onDelete: SetNull)
+  posterId     String
+  poster       User        @relation(fields: [posterId], references: [id], onDelete: Cascade)
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+
+  @@index([departmentId, isActive, createdAt])
+  @@index([posterId])
+}
+
+model MentorProfile {
+  id         String   @id @default(cuid())
+  userId     String   @unique
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  headline   String
+  expertise  String
+  bio        String   @db.Text
+  available  Boolean  @default(true)
+  status     MentorStatus @default(PENDING)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([available])
+}
+
+enum MentorStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
