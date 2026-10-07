@@ -37,3 +37,14 @@
 .staff-signup-toggle{display:flex;align-items:flex-start;gap:10px;padding:12px;margin:0 0 17px;border:1px solid #e5eae3;border-radius:4px;background:#fbfcfa;color:#34473c;font-size:10px}.staff-signup-toggle input{margin-top:2px;accent-color:#28684d}.staff-signup-toggle b,.staff-signup-toggle small{display:block}.staff-signup-toggle small{margin-top:4px;color:#849087;font-size:9px;font-weight:400}.staff-token-card{margin:15px 0}.staff-token-form{display:flex;align-items:flex-end;gap:12px;margin-bottom:20px}.staff-token-form .field{flex:1;margin:0}.staff-token-form .field span{display:block;margin-bottom:7px;color:#43544a;font-size:10px;font-weight:700}.staff-token-list-head{padding-top:18px;border-top:1px solid #edf0eb}.staff-token-list article{display:grid;grid-template-columns:minmax(110px,.5fr) minmax(200px,1fr) auto;gap:14px;align-items:center;padding:12px 0;border-top:1px solid #edf0eb}.staff-token-list code{font-size:13px;font-weight:700;letter-spacing:1.5px;color:#285c40}.staff-token-list article>span{font-size:10px;color:#718077}.staff-token-list .token-expired{color:#9a3934}.staff-token-list .btn{padding:7px 11px}@media(max-width:600px){.staff-token-form{align-items:stretch;flex-direction:column}.staff-token-list article{grid-template-columns:1fr auto;gap:7px}.staff-token-list article>span{grid-column:1}}
 
 .signup-options-card{margin:15px 0}.signup-options-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:25px}.signup-options-grid h3{margin:0 0 11px;color:#304438;font:700 12px 'Manrope',sans-serif}.signup-option-form{display:flex;gap:8px;margin-bottom:12px}.signup-option-form .input{min-width:0}.signup-department-form{display:grid;grid-template-columns:minmax(0,1fr) 110px auto}.signup-option-list{max-height:260px;overflow:auto}.signup-option-list article{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 0;border-top:1px solid #edf0eb;color:#43544a;font-size:10px}.signup-option-list article small{color:#88938b;font-size:9px}.signup-option-list .btn{padding:6px 9px;font-size:9px}@media(max-width:700px){.signup-options-grid{grid-template-columns:1fr}.signup-department-form{grid-template-columns:1fr}.signup-option-form:not(.signup-department-form){flex-direction:column}}
+.nav a.active{background:#eaf1e9;color:#28573f}.nav a.active .nav-icon{color:#337452}
+
+/* Keep workspace navigation and sign-out reachable on short viewports. */
+.side{overflow:hidden}
+.side>.nav{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain}
+.side-signout{flex:none}
+@media(max-width:760px){
+  .side{overflow:visible}
+  .side>.nav{flex:none;min-height:0;overflow-y:visible}
+  .side-signout{display:flex;justify-content:flex-end;margin-top:6px;padding:8px 10px 0;border-top:1px solid #edf0ea}
+}

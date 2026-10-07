@@ -19,6 +19,6 @@ export default function SuggestionForm() {
   return <form onSubmit={submit}>
     <div className="field"><label htmlFor="suggestion-message">Your suggestion</label><textarea className="input" id="suggestion-message" name="message" required minLength={5} maxLength={3000} rows={6} placeholder="Tell us what would make your campus workspace better…" /></div>
     <button className="btn" disabled={busy}>{busy ? 'Submitting…' : 'Send suggestion'}</button>
-    <p className="muted suggestion-privacy">Suggestions are visible to academic administrators only.</p>
+    <p className="muted suggestion-privacy">Your identity is not attached. Suggestions are visible only to system administrators, the president, and the president’s assistant.</p>
   </form>;
 }

@@ -1,2 +1,34 @@
-import {requireUser} from '@/lib/auth'; import {visibleDocuments} from '@/lib/access'; import { redirect } from 'next/navigation'; import Link from 'next/link';
-export default async function Documents(){const u=await requireUser();if(u.role==='STUDENT')redirect('/dashboard');const docs=await visibleDocuments(u);return <><div className="top"><div><h1>Documents</h1><p className="muted">Only documents your account is authorized to access are listed.</p></div>{['SUPER_ADMIN','DEPARTMENT_ADMIN','LECTURER','OFFICE_STAFF'].includes(u.role)&&<Link className="btn" href="/documents/upload">Upload document</Link>}</div><div className="card"><table className="table"><thead><tr><th>Document</th><th>Department</th><th>Uploader</th><th>Uploaded</th><th></th></tr></thead><tbody>{docs.map(d=><tr key={d.id}><td><strong>{d.title}</strong><div className="muted">{d.originalName}</div></td><td>{d.department?.name||'General'}</td><td>{d.uploader.name}</td><td>{d.createdAt.toLocaleDateString()}</td><td><a className="btn secondary" href={`/api/documents/${d.id}/download`}>Download</a></td></tr>)}</tbody></table></div></>}
+import { requireUser } from '@/lib/auth';
+import { visibleDocuments } from '@/lib/access';
+import { redirect } from 'next/navigation';
+import Link from 'next/link';
+import DocumentsTable from './documents-table';
+
+const uploadRoles = ['SUPER_ADMIN', 'DEPARTMENT_ADMIN', 'LECTURER', 'OFFICE_STAFF'];
+
+export default async function Documents() {
+  const user = await requireUser();
+  if (user.role === 'STUDENT') redirect('/dashboard');
+  const documents = await visibleDocuments(user);
+
+  return (
+    <>
+      <div className="top">
+        <div>
+          <h1>Documents</h1>
+          <p className="muted">Only documents your account is authorized to access are listed.</p>
+        </div>
+        {uploadRoles.includes(user.role) && <Link className="btn" href="/documents/upload">Upload document</Link>}
+      </div>
+      <div className="card"><DocumentsTable documents={documents.map((document) => ({
+        id: document.id,
+        title: document.title,
+        originalName: document.originalName,
+        departmentName: document.department?.name || 'General',
+        uploaderName: document.uploader.name,
+        uploadedAt: document.createdAt.toISOString(),
+        canDelete: user.role === 'SUPER_ADMIN' || document.uploader.id === user.id,
+      }))} /></div>
+    </>
+  );
+}

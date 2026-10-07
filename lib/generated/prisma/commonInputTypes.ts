@@ -311,6 +311,23 @@ export type BoolWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedBoolFilter<$PrismaModel>
 }
 
+export type EnumStaffTokenCategoryFilter<$PrismaModel = never> = {
+  equals?: $Enums.StaffTokenCategory | Prisma.EnumStaffTokenCategoryFieldRefInput<$PrismaModel>
+  in?: $Enums.StaffTokenCategory[] | Prisma.ListEnumStaffTokenCategoryFieldRefInput<$PrismaModel>
+  notIn?: $Enums.StaffTokenCategory[] | Prisma.ListEnumStaffTokenCategoryFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumStaffTokenCategoryFilter<$PrismaModel> | $Enums.StaffTokenCategory
+}
+
+export type EnumStaffTokenCategoryWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.StaffTokenCategory | Prisma.EnumStaffTokenCategoryFieldRefInput<$PrismaModel>
+  in?: $Enums.StaffTokenCategory[] | Prisma.ListEnumStaffTokenCategoryFieldRefInput<$PrismaModel>
+  notIn?: $Enums.StaffTokenCategory[] | Prisma.ListEnumStaffTokenCategoryFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumStaffTokenCategoryWithAggregatesFilter<$PrismaModel> | $Enums.StaffTokenCategory
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumStaffTokenCategoryFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumStaffTokenCategoryFilter<$PrismaModel>
+}
+
 export type EnumMentorStatusFilter<$PrismaModel = never> = {
   equals?: $Enums.MentorStatus | Prisma.EnumMentorStatusFieldRefInput<$PrismaModel>
   in?: $Enums.MentorStatus[] | Prisma.ListEnumMentorStatusFieldRefInput<$PrismaModel>
@@ -326,6 +343,23 @@ export type EnumMentorStatusWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumMentorStatusFilter<$PrismaModel>
   _max?: Prisma.NestedEnumMentorStatusFilter<$PrismaModel>
+}
+
+export type EnumLostFoundTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.LostFoundType | Prisma.EnumLostFoundTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.LostFoundType[] | Prisma.ListEnumLostFoundTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.LostFoundType[] | Prisma.ListEnumLostFoundTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumLostFoundTypeFilter<$PrismaModel> | $Enums.LostFoundType
+}
+
+export type EnumLostFoundTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.LostFoundType | Prisma.EnumLostFoundTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.LostFoundType[] | Prisma.ListEnumLostFoundTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.LostFoundType[] | Prisma.ListEnumLostFoundTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumLostFoundTypeWithAggregatesFilter<$PrismaModel> | $Enums.LostFoundType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumLostFoundTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumLostFoundTypeFilter<$PrismaModel>
 }
 
 export type NestedStringFilter<$PrismaModel = never> = {
@@ -611,6 +645,23 @@ export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedBoolFilter<$PrismaModel>
 }
 
+export type NestedEnumStaffTokenCategoryFilter<$PrismaModel = never> = {
+  equals?: $Enums.StaffTokenCategory | Prisma.EnumStaffTokenCategoryFieldRefInput<$PrismaModel>
+  in?: $Enums.StaffTokenCategory[] | Prisma.ListEnumStaffTokenCategoryFieldRefInput<$PrismaModel>
+  notIn?: $Enums.StaffTokenCategory[] | Prisma.ListEnumStaffTokenCategoryFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumStaffTokenCategoryFilter<$PrismaModel> | $Enums.StaffTokenCategory
+}
+
+export type NestedEnumStaffTokenCategoryWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.StaffTokenCategory | Prisma.EnumStaffTokenCategoryFieldRefInput<$PrismaModel>
+  in?: $Enums.StaffTokenCategory[] | Prisma.ListEnumStaffTokenCategoryFieldRefInput<$PrismaModel>
+  notIn?: $Enums.StaffTokenCategory[] | Prisma.ListEnumStaffTokenCategoryFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumStaffTokenCategoryWithAggregatesFilter<$PrismaModel> | $Enums.StaffTokenCategory
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumStaffTokenCategoryFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumStaffTokenCategoryFilter<$PrismaModel>
+}
+
 export type NestedEnumMentorStatusFilter<$PrismaModel = never> = {
   equals?: $Enums.MentorStatus | Prisma.EnumMentorStatusFieldRefInput<$PrismaModel>
   in?: $Enums.MentorStatus[] | Prisma.ListEnumMentorStatusFieldRefInput<$PrismaModel>
@@ -626,6 +677,23 @@ export type NestedEnumMentorStatusWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumMentorStatusFilter<$PrismaModel>
   _max?: Prisma.NestedEnumMentorStatusFilter<$PrismaModel>
+}
+
+export type NestedEnumLostFoundTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.LostFoundType | Prisma.EnumLostFoundTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.LostFoundType[] | Prisma.ListEnumLostFoundTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.LostFoundType[] | Prisma.ListEnumLostFoundTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumLostFoundTypeFilter<$PrismaModel> | $Enums.LostFoundType
+}
+
+export type NestedEnumLostFoundTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.LostFoundType | Prisma.EnumLostFoundTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.LostFoundType[] | Prisma.ListEnumLostFoundTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.LostFoundType[] | Prisma.ListEnumLostFoundTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumLostFoundTypeWithAggregatesFilter<$PrismaModel> | $Enums.LostFoundType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumLostFoundTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumLostFoundTypeFilter<$PrismaModel>
 }
 
 

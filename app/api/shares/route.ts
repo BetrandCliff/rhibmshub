@@ -10,10 +10,14 @@ export async function POST(req: Request) {
   try {
     const { documentId, targetType, recipientUserId, recipientOfficeId, permission = 'DOWNLOAD', message } = await req.json();
     if (typeof documentId !== 'string' || !['USER', 'OFFICE'].includes(targetType) || !['VIEW', 'DOWNLOAD'].includes(permission)) return NextResponse.json({ error: 'Choose a document, a recipient, and a valid permission.' }, { status: 400 });
-    const document = await db.document.findUnique({ where: { id: documentId }, select: { id: true, uploaderId: true } });
+    const document = await db.document.findUnique({ where: { id: documentId }, select: { id: true, uploaderId: true, courseId: true } });
     if (!document || document.uploaderId !== user.id && user.role !== 'SUPER_ADMIN') return NextResponse.json({ error: 'Only the document owner or a super administrator can share this document.' }, { status: 403 });
+    if (document.courseId && targetType !== 'USER') return NextResponse.json({ error: 'Course materials can only be shared directly with HODs and Deans.' }, { status: 400 });
     if (targetType === 'USER') {
-      if (typeof recipientUserId !== 'string' || recipientUserId === user.id || !await db.user.findUnique({ where: { id: recipientUserId }, select: { id: true } })) return NextResponse.json({ error: 'Choose a valid person to receive this document.' }, { status: 400 });
+      if (typeof recipientUserId !== 'string' || recipientUserId === user.id) return NextResponse.json({ error: 'Choose a valid person to receive this document.' }, { status: 400 });
+      const recipient = await db.user.findUnique({ where: { id: recipientUserId }, select: { id: true, staffPosition: true } });
+      if (!recipient) return NextResponse.json({ error: 'Choose a valid person to receive this document.' }, { status: 400 });
+      if (document.courseId && !/^(hod\b|head\s+of\s+department\b|dean\b)/i.test(recipient.staffPosition?.trim() ?? '')) return NextResponse.json({ error: 'Course materials can only be shared with HODs and Deans.' }, { status: 403 });
     } else if (typeof recipientOfficeId !== 'string' || !await db.office.findUnique({ where: { id: recipientOfficeId }, select: { id: true } })) {
       return NextResponse.json({ error: 'Choose a valid office to receive this document.' }, { status: 400 });
     }

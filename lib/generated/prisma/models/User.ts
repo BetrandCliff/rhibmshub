@@ -30,6 +30,8 @@ export type UserMinAggregateOutputType = {
   email: string | null
   passwordHash: string | null
   role: $Enums.Role | null
+  staffPosition: string | null
+  staffDepartment: string | null
   departmentId: string | null
   groupId: string | null
   officeId: string | null
@@ -43,6 +45,8 @@ export type UserMaxAggregateOutputType = {
   email: string | null
   passwordHash: string | null
   role: $Enums.Role | null
+  staffPosition: string | null
+  staffDepartment: string | null
   departmentId: string | null
   groupId: string | null
   officeId: string | null
@@ -56,6 +60,8 @@ export type UserCountAggregateOutputType = {
   email: number
   passwordHash: number
   role: number
+  staffPosition: number
+  staffDepartment: number
   departmentId: number
   groupId: number
   officeId: number
@@ -71,6 +77,8 @@ export type UserMinAggregateInputType = {
   email?: true
   passwordHash?: true
   role?: true
+  staffPosition?: true
+  staffDepartment?: true
   departmentId?: true
   groupId?: true
   officeId?: true
@@ -84,6 +92,8 @@ export type UserMaxAggregateInputType = {
   email?: true
   passwordHash?: true
   role?: true
+  staffPosition?: true
+  staffDepartment?: true
   departmentId?: true
   groupId?: true
   officeId?: true
@@ -97,6 +107,8 @@ export type UserCountAggregateInputType = {
   email?: true
   passwordHash?: true
   role?: true
+  staffPosition?: true
+  staffDepartment?: true
   departmentId?: true
   groupId?: true
   officeId?: true
@@ -183,6 +195,8 @@ export type UserGroupByOutputType = {
   email: string
   passwordHash: string
   role: $Enums.Role
+  staffPosition: string | null
+  staffDepartment: string | null
   departmentId: string | null
   groupId: string | null
   officeId: string | null
@@ -217,6 +231,8 @@ export type UserWhereInput = {
   email?: Prisma.StringFilter<"User"> | string
   passwordHash?: Prisma.StringFilter<"User"> | string
   role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
+  staffPosition?: Prisma.StringNullableFilter<"User"> | string | null
+  staffDepartment?: Prisma.StringNullableFilter<"User"> | string | null
   departmentId?: Prisma.StringNullableFilter<"User"> | string | null
   groupId?: Prisma.StringNullableFilter<"User"> | string | null
   officeId?: Prisma.StringNullableFilter<"User"> | string | null
@@ -232,6 +248,10 @@ export type UserWhereInput = {
   supervisedBy?: Prisma.SupervisionListRelationFilter
   jobPostings?: Prisma.JobPostingListRelationFilter
   mentorProfile?: Prisma.XOR<Prisma.MentorProfileNullableScalarRelationFilter, Prisma.MentorProfileWhereInput> | null
+  suggestions?: Prisma.SuggestionListRelationFilter
+  lostFoundPosts?: Prisma.LostFoundItemListRelationFilter
+  createdStaffTokens?: Prisma.StaffSignupTokenListRelationFilter
+  createdPositionOptions?: Prisma.StaffPositionOptionListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -240,6 +260,8 @@ export type UserOrderByWithRelationInput = {
   email?: Prisma.SortOrder
   passwordHash?: Prisma.SortOrder
   role?: Prisma.SortOrder
+  staffPosition?: Prisma.SortOrderInput | Prisma.SortOrder
+  staffDepartment?: Prisma.SortOrderInput | Prisma.SortOrder
   departmentId?: Prisma.SortOrderInput | Prisma.SortOrder
   groupId?: Prisma.SortOrderInput | Prisma.SortOrder
   officeId?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -255,6 +277,10 @@ export type UserOrderByWithRelationInput = {
   supervisedBy?: Prisma.SupervisionOrderByRelationAggregateInput
   jobPostings?: Prisma.JobPostingOrderByRelationAggregateInput
   mentorProfile?: Prisma.MentorProfileOrderByWithRelationInput
+  suggestions?: Prisma.SuggestionOrderByRelationAggregateInput
+  lostFoundPosts?: Prisma.LostFoundItemOrderByRelationAggregateInput
+  createdStaffTokens?: Prisma.StaffSignupTokenOrderByRelationAggregateInput
+  createdPositionOptions?: Prisma.StaffPositionOptionOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -266,6 +292,8 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   name?: Prisma.StringFilter<"User"> | string
   passwordHash?: Prisma.StringFilter<"User"> | string
   role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
+  staffPosition?: Prisma.StringNullableFilter<"User"> | string | null
+  staffDepartment?: Prisma.StringNullableFilter<"User"> | string | null
   departmentId?: Prisma.StringNullableFilter<"User"> | string | null
   groupId?: Prisma.StringNullableFilter<"User"> | string | null
   officeId?: Prisma.StringNullableFilter<"User"> | string | null
@@ -281,6 +309,10 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   supervisedBy?: Prisma.SupervisionListRelationFilter
   jobPostings?: Prisma.JobPostingListRelationFilter
   mentorProfile?: Prisma.XOR<Prisma.MentorProfileNullableScalarRelationFilter, Prisma.MentorProfileWhereInput> | null
+  suggestions?: Prisma.SuggestionListRelationFilter
+  lostFoundPosts?: Prisma.LostFoundItemListRelationFilter
+  createdStaffTokens?: Prisma.StaffSignupTokenListRelationFilter
+  createdPositionOptions?: Prisma.StaffPositionOptionListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -289,6 +321,8 @@ export type UserOrderByWithAggregationInput = {
   email?: Prisma.SortOrder
   passwordHash?: Prisma.SortOrder
   role?: Prisma.SortOrder
+  staffPosition?: Prisma.SortOrderInput | Prisma.SortOrder
+  staffDepartment?: Prisma.SortOrderInput | Prisma.SortOrder
   departmentId?: Prisma.SortOrderInput | Prisma.SortOrder
   groupId?: Prisma.SortOrderInput | Prisma.SortOrder
   officeId?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -308,6 +342,8 @@ export type UserScalarWhereWithAggregatesInput = {
   email?: Prisma.StringWithAggregatesFilter<"User"> | string
   passwordHash?: Prisma.StringWithAggregatesFilter<"User"> | string
   role?: Prisma.EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
+  staffPosition?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  staffDepartment?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   departmentId?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   groupId?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   officeId?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
@@ -321,6 +357,8 @@ export type UserCreateInput = {
   email: string
   passwordHash: string
   role?: $Enums.Role
+  staffPosition?: string | null
+  staffDepartment?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   department?: Prisma.DepartmentCreateNestedOneWithoutUsersInput
@@ -333,6 +371,10 @@ export type UserCreateInput = {
   supervisedBy?: Prisma.SupervisionCreateNestedManyWithoutSuperviseeInput
   jobPostings?: Prisma.JobPostingCreateNestedManyWithoutPosterInput
   mentorProfile?: Prisma.MentorProfileCreateNestedOneWithoutUserInput
+  suggestions?: Prisma.SuggestionCreateNestedManyWithoutSenderInput
+  lostFoundPosts?: Prisma.LostFoundItemCreateNestedManyWithoutPostedByInput
+  createdStaffTokens?: Prisma.StaffSignupTokenCreateNestedManyWithoutCreatedByInput
+  createdPositionOptions?: Prisma.StaffPositionOptionCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -341,6 +383,8 @@ export type UserUncheckedCreateInput = {
   email: string
   passwordHash: string
   role?: $Enums.Role
+  staffPosition?: string | null
+  staffDepartment?: string | null
   departmentId?: string | null
   groupId?: string | null
   officeId?: string | null
@@ -353,6 +397,10 @@ export type UserUncheckedCreateInput = {
   supervisedBy?: Prisma.SupervisionUncheckedCreateNestedManyWithoutSuperviseeInput
   jobPostings?: Prisma.JobPostingUncheckedCreateNestedManyWithoutPosterInput
   mentorProfile?: Prisma.MentorProfileUncheckedCreateNestedOneWithoutUserInput
+  suggestions?: Prisma.SuggestionUncheckedCreateNestedManyWithoutSenderInput
+  lostFoundPosts?: Prisma.LostFoundItemUncheckedCreateNestedManyWithoutPostedByInput
+  createdStaffTokens?: Prisma.StaffSignupTokenUncheckedCreateNestedManyWithoutCreatedByInput
+  createdPositionOptions?: Prisma.StaffPositionOptionUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUpdateInput = {
@@ -361,6 +409,8 @@ export type UserUpdateInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  staffPosition?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  staffDepartment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   department?: Prisma.DepartmentUpdateOneWithoutUsersNestedInput
@@ -373,6 +423,10 @@ export type UserUpdateInput = {
   supervisedBy?: Prisma.SupervisionUpdateManyWithoutSuperviseeNestedInput
   jobPostings?: Prisma.JobPostingUpdateManyWithoutPosterNestedInput
   mentorProfile?: Prisma.MentorProfileUpdateOneWithoutUserNestedInput
+  suggestions?: Prisma.SuggestionUpdateManyWithoutSenderNestedInput
+  lostFoundPosts?: Prisma.LostFoundItemUpdateManyWithoutPostedByNestedInput
+  createdStaffTokens?: Prisma.StaffSignupTokenUpdateManyWithoutCreatedByNestedInput
+  createdPositionOptions?: Prisma.StaffPositionOptionUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -381,6 +435,8 @@ export type UserUncheckedUpdateInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  staffPosition?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  staffDepartment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   departmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   groupId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   officeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -393,6 +449,10 @@ export type UserUncheckedUpdateInput = {
   supervisedBy?: Prisma.SupervisionUncheckedUpdateManyWithoutSuperviseeNestedInput
   jobPostings?: Prisma.JobPostingUncheckedUpdateManyWithoutPosterNestedInput
   mentorProfile?: Prisma.MentorProfileUncheckedUpdateOneWithoutUserNestedInput
+  suggestions?: Prisma.SuggestionUncheckedUpdateManyWithoutSenderNestedInput
+  lostFoundPosts?: Prisma.LostFoundItemUncheckedUpdateManyWithoutPostedByNestedInput
+  createdStaffTokens?: Prisma.StaffSignupTokenUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdPositionOptions?: Prisma.StaffPositionOptionUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -401,6 +461,8 @@ export type UserCreateManyInput = {
   email: string
   passwordHash: string
   role?: $Enums.Role
+  staffPosition?: string | null
+  staffDepartment?: string | null
   departmentId?: string | null
   groupId?: string | null
   officeId?: string | null
@@ -414,6 +476,8 @@ export type UserUpdateManyMutationInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  staffPosition?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  staffDepartment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -424,6 +488,8 @@ export type UserUncheckedUpdateManyInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  staffPosition?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  staffDepartment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   departmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   groupId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   officeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -437,6 +503,8 @@ export type UserCountOrderByAggregateInput = {
   email?: Prisma.SortOrder
   passwordHash?: Prisma.SortOrder
   role?: Prisma.SortOrder
+  staffPosition?: Prisma.SortOrder
+  staffDepartment?: Prisma.SortOrder
   departmentId?: Prisma.SortOrder
   groupId?: Prisma.SortOrder
   officeId?: Prisma.SortOrder
@@ -450,6 +518,8 @@ export type UserMaxOrderByAggregateInput = {
   email?: Prisma.SortOrder
   passwordHash?: Prisma.SortOrder
   role?: Prisma.SortOrder
+  staffPosition?: Prisma.SortOrder
+  staffDepartment?: Prisma.SortOrder
   departmentId?: Prisma.SortOrder
   groupId?: Prisma.SortOrder
   officeId?: Prisma.SortOrder
@@ -463,6 +533,8 @@ export type UserMinOrderByAggregateInput = {
   email?: Prisma.SortOrder
   passwordHash?: Prisma.SortOrder
   role?: Prisma.SortOrder
+  staffPosition?: Prisma.SortOrder
+  staffDepartment?: Prisma.SortOrder
   departmentId?: Prisma.SortOrder
   groupId?: Prisma.SortOrder
   officeId?: Prisma.SortOrder
@@ -485,6 +557,11 @@ export type UserScalarRelationFilter = {
   isNot?: Prisma.UserWhereInput
 }
 
+export type UserNullableScalarRelationFilter = {
+  is?: Prisma.UserWhereInput | null
+  isNot?: Prisma.UserWhereInput | null
+}
+
 export type StringFieldUpdateOperationsInput = {
   set?: string
 }
@@ -493,12 +570,12 @@ export type EnumRoleFieldUpdateOperationsInput = {
   set?: $Enums.Role
 }
 
-export type DateTimeFieldUpdateOperationsInput = {
-  set?: Date | string
-}
-
 export type NullableStringFieldUpdateOperationsInput = {
   set?: string | null
+}
+
+export type DateTimeFieldUpdateOperationsInput = {
+  set?: Date | string
 }
 
 export type UserCreateNestedManyWithoutDepartmentInput = {
@@ -697,6 +774,50 @@ export type UserUpdateOneRequiredWithoutSupervisedByNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSupervisedByInput, Prisma.UserUpdateWithoutSupervisedByInput>, Prisma.UserUncheckedUpdateWithoutSupervisedByInput>
 }
 
+export type UserCreateNestedOneWithoutSuggestionsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSuggestionsInput, Prisma.UserUncheckedCreateWithoutSuggestionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSuggestionsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutSuggestionsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSuggestionsInput, Prisma.UserUncheckedCreateWithoutSuggestionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSuggestionsInput
+  upsert?: Prisma.UserUpsertWithoutSuggestionsInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSuggestionsInput, Prisma.UserUpdateWithoutSuggestionsInput>, Prisma.UserUncheckedUpdateWithoutSuggestionsInput>
+}
+
+export type UserCreateNestedOneWithoutCreatedStaffTokensInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCreatedStaffTokensInput, Prisma.UserUncheckedCreateWithoutCreatedStaffTokensInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCreatedStaffTokensInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutCreatedStaffTokensNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCreatedStaffTokensInput, Prisma.UserUncheckedCreateWithoutCreatedStaffTokensInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCreatedStaffTokensInput
+  upsert?: Prisma.UserUpsertWithoutCreatedStaffTokensInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCreatedStaffTokensInput, Prisma.UserUpdateWithoutCreatedStaffTokensInput>, Prisma.UserUncheckedUpdateWithoutCreatedStaffTokensInput>
+}
+
+export type UserCreateNestedOneWithoutCreatedPositionOptionsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCreatedPositionOptionsInput, Prisma.UserUncheckedCreateWithoutCreatedPositionOptionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCreatedPositionOptionsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutCreatedPositionOptionsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCreatedPositionOptionsInput, Prisma.UserUncheckedCreateWithoutCreatedPositionOptionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCreatedPositionOptionsInput
+  upsert?: Prisma.UserUpsertWithoutCreatedPositionOptionsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCreatedPositionOptionsInput, Prisma.UserUpdateWithoutCreatedPositionOptionsInput>, Prisma.UserUncheckedUpdateWithoutCreatedPositionOptionsInput>
+}
+
 export type UserCreateNestedOneWithoutJobPostingsInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutJobPostingsInput, Prisma.UserUncheckedCreateWithoutJobPostingsInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutJobPostingsInput
@@ -725,12 +846,30 @@ export type UserUpdateOneRequiredWithoutMentorProfileNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutMentorProfileInput, Prisma.UserUpdateWithoutMentorProfileInput>, Prisma.UserUncheckedUpdateWithoutMentorProfileInput>
 }
 
+export type UserCreateNestedOneWithoutLostFoundPostsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutLostFoundPostsInput, Prisma.UserUncheckedCreateWithoutLostFoundPostsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutLostFoundPostsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutLostFoundPostsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutLostFoundPostsInput, Prisma.UserUncheckedCreateWithoutLostFoundPostsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutLostFoundPostsInput
+  upsert?: Prisma.UserUpsertWithoutLostFoundPostsInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutLostFoundPostsInput, Prisma.UserUpdateWithoutLostFoundPostsInput>, Prisma.UserUncheckedUpdateWithoutLostFoundPostsInput>
+}
+
 export type UserCreateWithoutDepartmentInput = {
   id?: string
   name: string
   email: string
   passwordHash: string
   role?: $Enums.Role
+  staffPosition?: string | null
+  staffDepartment?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   group?: Prisma.AcademicGroupCreateNestedOneWithoutUsersInput
@@ -742,6 +881,10 @@ export type UserCreateWithoutDepartmentInput = {
   supervisedBy?: Prisma.SupervisionCreateNestedManyWithoutSuperviseeInput
   jobPostings?: Prisma.JobPostingCreateNestedManyWithoutPosterInput
   mentorProfile?: Prisma.MentorProfileCreateNestedOneWithoutUserInput
+  suggestions?: Prisma.SuggestionCreateNestedManyWithoutSenderInput
+  lostFoundPosts?: Prisma.LostFoundItemCreateNestedManyWithoutPostedByInput
+  createdStaffTokens?: Prisma.StaffSignupTokenCreateNestedManyWithoutCreatedByInput
+  createdPositionOptions?: Prisma.StaffPositionOptionCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutDepartmentInput = {
@@ -750,6 +893,8 @@ export type UserUncheckedCreateWithoutDepartmentInput = {
   email: string
   passwordHash: string
   role?: $Enums.Role
+  staffPosition?: string | null
+  staffDepartment?: string | null
   groupId?: string | null
   officeId?: string | null
   createdAt?: Date | string
@@ -761,6 +906,10 @@ export type UserUncheckedCreateWithoutDepartmentInput = {
   supervisedBy?: Prisma.SupervisionUncheckedCreateNestedManyWithoutSuperviseeInput
   jobPostings?: Prisma.JobPostingUncheckedCreateNestedManyWithoutPosterInput
   mentorProfile?: Prisma.MentorProfileUncheckedCreateNestedOneWithoutUserInput
+  suggestions?: Prisma.SuggestionUncheckedCreateNestedManyWithoutSenderInput
+  lostFoundPosts?: Prisma.LostFoundItemUncheckedCreateNestedManyWithoutPostedByInput
+  createdStaffTokens?: Prisma.StaffSignupTokenUncheckedCreateNestedManyWithoutCreatedByInput
+  createdPositionOptions?: Prisma.StaffPositionOptionUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutDepartmentInput = {
@@ -798,6 +947,8 @@ export type UserScalarWhereInput = {
   email?: Prisma.StringFilter<"User"> | string
   passwordHash?: Prisma.StringFilter<"User"> | string
   role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
+  staffPosition?: Prisma.StringNullableFilter<"User"> | string | null
+  staffDepartment?: Prisma.StringNullableFilter<"User"> | string | null
   departmentId?: Prisma.StringNullableFilter<"User"> | string | null
   groupId?: Prisma.StringNullableFilter<"User"> | string | null
   officeId?: Prisma.StringNullableFilter<"User"> | string | null
@@ -811,6 +962,8 @@ export type UserCreateWithoutGroupInput = {
   email: string
   passwordHash: string
   role?: $Enums.Role
+  staffPosition?: string | null
+  staffDepartment?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   department?: Prisma.DepartmentCreateNestedOneWithoutUsersInput
@@ -822,6 +975,10 @@ export type UserCreateWithoutGroupInput = {
   supervisedBy?: Prisma.SupervisionCreateNestedManyWithoutSuperviseeInput
   jobPostings?: Prisma.JobPostingCreateNestedManyWithoutPosterInput
   mentorProfile?: Prisma.MentorProfileCreateNestedOneWithoutUserInput
+  suggestions?: Prisma.SuggestionCreateNestedManyWithoutSenderInput
+  lostFoundPosts?: Prisma.LostFoundItemCreateNestedManyWithoutPostedByInput
+  createdStaffTokens?: Prisma.StaffSignupTokenCreateNestedManyWithoutCreatedByInput
+  createdPositionOptions?: Prisma.StaffPositionOptionCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutGroupInput = {
@@ -830,6 +987,8 @@ export type UserUncheckedCreateWithoutGroupInput = {
   email: string
   passwordHash: string
   role?: $Enums.Role
+  staffPosition?: string | null
+  staffDepartment?: string | null
   departmentId?: string | null
   officeId?: string | null
   createdAt?: Date | string
@@ -841,6 +1000,10 @@ export type UserUncheckedCreateWithoutGroupInput = {
   supervisedBy?: Prisma.SupervisionUncheckedCreateNestedManyWithoutSuperviseeInput
   jobPostings?: Prisma.JobPostingUncheckedCreateNestedManyWithoutPosterInput
   mentorProfile?: Prisma.MentorProfileUncheckedCreateNestedOneWithoutUserInput
+  suggestions?: Prisma.SuggestionUncheckedCreateNestedManyWithoutSenderInput
+  lostFoundPosts?: Prisma.LostFoundItemUncheckedCreateNestedManyWithoutPostedByInput
+  createdStaffTokens?: Prisma.StaffSignupTokenUncheckedCreateNestedManyWithoutCreatedByInput
+  createdPositionOptions?: Prisma.StaffPositionOptionUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutGroupInput = {
@@ -875,6 +1038,8 @@ export type UserCreateWithoutOfficeInput = {
   email: string
   passwordHash: string
   role?: $Enums.Role
+  staffPosition?: string | null
+  staffDepartment?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   department?: Prisma.DepartmentCreateNestedOneWithoutUsersInput
@@ -886,6 +1051,10 @@ export type UserCreateWithoutOfficeInput = {
   supervisedBy?: Prisma.SupervisionCreateNestedManyWithoutSuperviseeInput
   jobPostings?: Prisma.JobPostingCreateNestedManyWithoutPosterInput
   mentorProfile?: Prisma.MentorProfileCreateNestedOneWithoutUserInput
+  suggestions?: Prisma.SuggestionCreateNestedManyWithoutSenderInput
+  lostFoundPosts?: Prisma.LostFoundItemCreateNestedManyWithoutPostedByInput
+  createdStaffTokens?: Prisma.StaffSignupTokenCreateNestedManyWithoutCreatedByInput
+  createdPositionOptions?: Prisma.StaffPositionOptionCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutOfficeInput = {
@@ -894,6 +1063,8 @@ export type UserUncheckedCreateWithoutOfficeInput = {
   email: string
   passwordHash: string
   role?: $Enums.Role
+  staffPosition?: string | null
+  staffDepartment?: string | null
   departmentId?: string | null
   groupId?: string | null
   createdAt?: Date | string
@@ -905,6 +1076,10 @@ export type UserUncheckedCreateWithoutOfficeInput = {
   supervisedBy?: Prisma.SupervisionUncheckedCreateNestedManyWithoutSuperviseeInput
   jobPostings?: Prisma.JobPostingUncheckedCreateNestedManyWithoutPosterInput
   mentorProfile?: Prisma.MentorProfileUncheckedCreateNestedOneWithoutUserInput
+  suggestions?: Prisma.SuggestionUncheckedCreateNestedManyWithoutSenderInput
+  lostFoundPosts?: Prisma.LostFoundItemUncheckedCreateNestedManyWithoutPostedByInput
+  createdStaffTokens?: Prisma.StaffSignupTokenUncheckedCreateNestedManyWithoutCreatedByInput
+  createdPositionOptions?: Prisma.StaffPositionOptionUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutOfficeInput = {
@@ -939,6 +1114,8 @@ export type UserCreateWithoutUploadedDocumentsInput = {
   email: string
   passwordHash: string
   role?: $Enums.Role
+  staffPosition?: string | null
+  staffDepartment?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   department?: Prisma.DepartmentCreateNestedOneWithoutUsersInput
@@ -950,6 +1127,10 @@ export type UserCreateWithoutUploadedDocumentsInput = {
   supervisedBy?: Prisma.SupervisionCreateNestedManyWithoutSuperviseeInput
   jobPostings?: Prisma.JobPostingCreateNestedManyWithoutPosterInput
   mentorProfile?: Prisma.MentorProfileCreateNestedOneWithoutUserInput
+  suggestions?: Prisma.SuggestionCreateNestedManyWithoutSenderInput
+  lostFoundPosts?: Prisma.LostFoundItemCreateNestedManyWithoutPostedByInput
+  createdStaffTokens?: Prisma.StaffSignupTokenCreateNestedManyWithoutCreatedByInput
+  createdPositionOptions?: Prisma.StaffPositionOptionCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutUploadedDocumentsInput = {
@@ -958,6 +1139,8 @@ export type UserUncheckedCreateWithoutUploadedDocumentsInput = {
   email: string
   passwordHash: string
   role?: $Enums.Role
+  staffPosition?: string | null
+  staffDepartment?: string | null
   departmentId?: string | null
   groupId?: string | null
   officeId?: string | null
@@ -969,6 +1152,10 @@ export type UserUncheckedCreateWithoutUploadedDocumentsInput = {
   supervisedBy?: Prisma.SupervisionUncheckedCreateNestedManyWithoutSuperviseeInput
   jobPostings?: Prisma.JobPostingUncheckedCreateNestedManyWithoutPosterInput
   mentorProfile?: Prisma.MentorProfileUncheckedCreateNestedOneWithoutUserInput
+  suggestions?: Prisma.SuggestionUncheckedCreateNestedManyWithoutSenderInput
+  lostFoundPosts?: Prisma.LostFoundItemUncheckedCreateNestedManyWithoutPostedByInput
+  createdStaffTokens?: Prisma.StaffSignupTokenUncheckedCreateNestedManyWithoutCreatedByInput
+  createdPositionOptions?: Prisma.StaffPositionOptionUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutUploadedDocumentsInput = {
@@ -993,6 +1180,8 @@ export type UserUpdateWithoutUploadedDocumentsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  staffPosition?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  staffDepartment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   department?: Prisma.DepartmentUpdateOneWithoutUsersNestedInput
@@ -1004,6 +1193,10 @@ export type UserUpdateWithoutUploadedDocumentsInput = {
   supervisedBy?: Prisma.SupervisionUpdateManyWithoutSuperviseeNestedInput
   jobPostings?: Prisma.JobPostingUpdateManyWithoutPosterNestedInput
   mentorProfile?: Prisma.MentorProfileUpdateOneWithoutUserNestedInput
+  suggestions?: Prisma.SuggestionUpdateManyWithoutSenderNestedInput
+  lostFoundPosts?: Prisma.LostFoundItemUpdateManyWithoutPostedByNestedInput
+  createdStaffTokens?: Prisma.StaffSignupTokenUpdateManyWithoutCreatedByNestedInput
+  createdPositionOptions?: Prisma.StaffPositionOptionUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutUploadedDocumentsInput = {
@@ -1012,6 +1205,8 @@ export type UserUncheckedUpdateWithoutUploadedDocumentsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  staffPosition?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  staffDepartment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   departmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   groupId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   officeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1023,6 +1218,10 @@ export type UserUncheckedUpdateWithoutUploadedDocumentsInput = {
   supervisedBy?: Prisma.SupervisionUncheckedUpdateManyWithoutSuperviseeNestedInput
   jobPostings?: Prisma.JobPostingUncheckedUpdateManyWithoutPosterNestedInput
   mentorProfile?: Prisma.MentorProfileUncheckedUpdateOneWithoutUserNestedInput
+  suggestions?: Prisma.SuggestionUncheckedUpdateManyWithoutSenderNestedInput
+  lostFoundPosts?: Prisma.LostFoundItemUncheckedUpdateManyWithoutPostedByNestedInput
+  createdStaffTokens?: Prisma.StaffSignupTokenUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdPositionOptions?: Prisma.StaffPositionOptionUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateWithoutAccessInput = {
@@ -1031,6 +1230,8 @@ export type UserCreateWithoutAccessInput = {
   email: string
   passwordHash: string
   role?: $Enums.Role
+  staffPosition?: string | null
+  staffDepartment?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   department?: Prisma.DepartmentCreateNestedOneWithoutUsersInput
@@ -1042,6 +1243,10 @@ export type UserCreateWithoutAccessInput = {
   supervisedBy?: Prisma.SupervisionCreateNestedManyWithoutSuperviseeInput
   jobPostings?: Prisma.JobPostingCreateNestedManyWithoutPosterInput
   mentorProfile?: Prisma.MentorProfileCreateNestedOneWithoutUserInput
+  suggestions?: Prisma.SuggestionCreateNestedManyWithoutSenderInput
+  lostFoundPosts?: Prisma.LostFoundItemCreateNestedManyWithoutPostedByInput
+  createdStaffTokens?: Prisma.StaffSignupTokenCreateNestedManyWithoutCreatedByInput
+  createdPositionOptions?: Prisma.StaffPositionOptionCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutAccessInput = {
@@ -1050,6 +1255,8 @@ export type UserUncheckedCreateWithoutAccessInput = {
   email: string
   passwordHash: string
   role?: $Enums.Role
+  staffPosition?: string | null
+  staffDepartment?: string | null
   departmentId?: string | null
   groupId?: string | null
   officeId?: string | null
@@ -1061,6 +1268,10 @@ export type UserUncheckedCreateWithoutAccessInput = {
   supervisedBy?: Prisma.SupervisionUncheckedCreateNestedManyWithoutSuperviseeInput
   jobPostings?: Prisma.JobPostingUncheckedCreateNestedManyWithoutPosterInput
   mentorProfile?: Prisma.MentorProfileUncheckedCreateNestedOneWithoutUserInput
+  suggestions?: Prisma.SuggestionUncheckedCreateNestedManyWithoutSenderInput
+  lostFoundPosts?: Prisma.LostFoundItemUncheckedCreateNestedManyWithoutPostedByInput
+  createdStaffTokens?: Prisma.StaffSignupTokenUncheckedCreateNestedManyWithoutCreatedByInput
+  createdPositionOptions?: Prisma.StaffPositionOptionUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutAccessInput = {
@@ -1085,6 +1296,8 @@ export type UserUpdateWithoutAccessInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  staffPosition?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  staffDepartment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   department?: Prisma.DepartmentUpdateOneWithoutUsersNestedInput
@@ -1096,6 +1309,10 @@ export type UserUpdateWithoutAccessInput = {
   supervisedBy?: Prisma.SupervisionUpdateManyWithoutSuperviseeNestedInput
   jobPostings?: Prisma.JobPostingUpdateManyWithoutPosterNestedInput
   mentorProfile?: Prisma.MentorProfileUpdateOneWithoutUserNestedInput
+  suggestions?: Prisma.SuggestionUpdateManyWithoutSenderNestedInput
+  lostFoundPosts?: Prisma.LostFoundItemUpdateManyWithoutPostedByNestedInput
+  createdStaffTokens?: Prisma.StaffSignupTokenUpdateManyWithoutCreatedByNestedInput
+  createdPositionOptions?: Prisma.StaffPositionOptionUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAccessInput = {
@@ -1104,6 +1321,8 @@ export type UserUncheckedUpdateWithoutAccessInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  staffPosition?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  staffDepartment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   departmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   groupId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   officeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1115,6 +1334,10 @@ export type UserUncheckedUpdateWithoutAccessInput = {
   supervisedBy?: Prisma.SupervisionUncheckedUpdateManyWithoutSuperviseeNestedInput
   jobPostings?: Prisma.JobPostingUncheckedUpdateManyWithoutPosterNestedInput
   mentorProfile?: Prisma.MentorProfileUncheckedUpdateOneWithoutUserNestedInput
+  suggestions?: Prisma.SuggestionUncheckedUpdateManyWithoutSenderNestedInput
+  lostFoundPosts?: Prisma.LostFoundItemUncheckedUpdateManyWithoutPostedByNestedInput
+  createdStaffTokens?: Prisma.StaffSignupTokenUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdPositionOptions?: Prisma.StaffPositionOptionUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateWithoutSharesSentInput = {
@@ -1123,6 +1346,8 @@ export type UserCreateWithoutSharesSentInput = {
   email: string
   passwordHash: string
   role?: $Enums.Role
+  staffPosition?: string | null
+  staffDepartment?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   department?: Prisma.DepartmentCreateNestedOneWithoutUsersInput
@@ -1134,6 +1359,10 @@ export type UserCreateWithoutSharesSentInput = {
   supervisedBy?: Prisma.SupervisionCreateNestedManyWithoutSuperviseeInput
   jobPostings?: Prisma.JobPostingCreateNestedManyWithoutPosterInput
   mentorProfile?: Prisma.MentorProfileCreateNestedOneWithoutUserInput
+  suggestions?: Prisma.SuggestionCreateNestedManyWithoutSenderInput
+  lostFoundPosts?: Prisma.LostFoundItemCreateNestedManyWithoutPostedByInput
+  createdStaffTokens?: Prisma.StaffSignupTokenCreateNestedManyWithoutCreatedByInput
+  createdPositionOptions?: Prisma.StaffPositionOptionCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutSharesSentInput = {
@@ -1142,6 +1371,8 @@ export type UserUncheckedCreateWithoutSharesSentInput = {
   email: string
   passwordHash: string
   role?: $Enums.Role
+  staffPosition?: string | null
+  staffDepartment?: string | null
   departmentId?: string | null
   groupId?: string | null
   officeId?: string | null
@@ -1153,6 +1384,10 @@ export type UserUncheckedCreateWithoutSharesSentInput = {
   supervisedBy?: Prisma.SupervisionUncheckedCreateNestedManyWithoutSuperviseeInput
   jobPostings?: Prisma.JobPostingUncheckedCreateNestedManyWithoutPosterInput
   mentorProfile?: Prisma.MentorProfileUncheckedCreateNestedOneWithoutUserInput
+  suggestions?: Prisma.SuggestionUncheckedCreateNestedManyWithoutSenderInput
+  lostFoundPosts?: Prisma.LostFoundItemUncheckedCreateNestedManyWithoutPostedByInput
+  createdStaffTokens?: Prisma.StaffSignupTokenUncheckedCreateNestedManyWithoutCreatedByInput
+  createdPositionOptions?: Prisma.StaffPositionOptionUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutSharesSentInput = {
@@ -1177,6 +1412,8 @@ export type UserUpdateWithoutSharesSentInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  staffPosition?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  staffDepartment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   department?: Prisma.DepartmentUpdateOneWithoutUsersNestedInput
@@ -1188,6 +1425,10 @@ export type UserUpdateWithoutSharesSentInput = {
   supervisedBy?: Prisma.SupervisionUpdateManyWithoutSuperviseeNestedInput
   jobPostings?: Prisma.JobPostingUpdateManyWithoutPosterNestedInput
   mentorProfile?: Prisma.MentorProfileUpdateOneWithoutUserNestedInput
+  suggestions?: Prisma.SuggestionUpdateManyWithoutSenderNestedInput
+  lostFoundPosts?: Prisma.LostFoundItemUpdateManyWithoutPostedByNestedInput
+  createdStaffTokens?: Prisma.StaffSignupTokenUpdateManyWithoutCreatedByNestedInput
+  createdPositionOptions?: Prisma.StaffPositionOptionUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSharesSentInput = {
@@ -1196,6 +1437,8 @@ export type UserUncheckedUpdateWithoutSharesSentInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  staffPosition?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  staffDepartment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   departmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   groupId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   officeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1207,6 +1450,10 @@ export type UserUncheckedUpdateWithoutSharesSentInput = {
   supervisedBy?: Prisma.SupervisionUncheckedUpdateManyWithoutSuperviseeNestedInput
   jobPostings?: Prisma.JobPostingUncheckedUpdateManyWithoutPosterNestedInput
   mentorProfile?: Prisma.MentorProfileUncheckedUpdateOneWithoutUserNestedInput
+  suggestions?: Prisma.SuggestionUncheckedUpdateManyWithoutSenderNestedInput
+  lostFoundPosts?: Prisma.LostFoundItemUncheckedUpdateManyWithoutPostedByNestedInput
+  createdStaffTokens?: Prisma.StaffSignupTokenUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdPositionOptions?: Prisma.StaffPositionOptionUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateWithoutSupervisingInput = {
@@ -1215,6 +1462,8 @@ export type UserCreateWithoutSupervisingInput = {
   email: string
   passwordHash: string
   role?: $Enums.Role
+  staffPosition?: string | null
+  staffDepartment?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   department?: Prisma.DepartmentCreateNestedOneWithoutUsersInput
@@ -1226,6 +1475,10 @@ export type UserCreateWithoutSupervisingInput = {
   supervisedBy?: Prisma.SupervisionCreateNestedManyWithoutSuperviseeInput
   jobPostings?: Prisma.JobPostingCreateNestedManyWithoutPosterInput
   mentorProfile?: Prisma.MentorProfileCreateNestedOneWithoutUserInput
+  suggestions?: Prisma.SuggestionCreateNestedManyWithoutSenderInput
+  lostFoundPosts?: Prisma.LostFoundItemCreateNestedManyWithoutPostedByInput
+  createdStaffTokens?: Prisma.StaffSignupTokenCreateNestedManyWithoutCreatedByInput
+  createdPositionOptions?: Prisma.StaffPositionOptionCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutSupervisingInput = {
@@ -1234,6 +1487,8 @@ export type UserUncheckedCreateWithoutSupervisingInput = {
   email: string
   passwordHash: string
   role?: $Enums.Role
+  staffPosition?: string | null
+  staffDepartment?: string | null
   departmentId?: string | null
   groupId?: string | null
   officeId?: string | null
@@ -1245,6 +1500,10 @@ export type UserUncheckedCreateWithoutSupervisingInput = {
   supervisedBy?: Prisma.SupervisionUncheckedCreateNestedManyWithoutSuperviseeInput
   jobPostings?: Prisma.JobPostingUncheckedCreateNestedManyWithoutPosterInput
   mentorProfile?: Prisma.MentorProfileUncheckedCreateNestedOneWithoutUserInput
+  suggestions?: Prisma.SuggestionUncheckedCreateNestedManyWithoutSenderInput
+  lostFoundPosts?: Prisma.LostFoundItemUncheckedCreateNestedManyWithoutPostedByInput
+  createdStaffTokens?: Prisma.StaffSignupTokenUncheckedCreateNestedManyWithoutCreatedByInput
+  createdPositionOptions?: Prisma.StaffPositionOptionUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutSupervisingInput = {
@@ -1258,6 +1517,8 @@ export type UserCreateWithoutSupervisedByInput = {
   email: string
   passwordHash: string
   role?: $Enums.Role
+  staffPosition?: string | null
+  staffDepartment?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   department?: Prisma.DepartmentCreateNestedOneWithoutUsersInput
@@ -1269,6 +1530,10 @@ export type UserCreateWithoutSupervisedByInput = {
   supervising?: Prisma.SupervisionCreateNestedManyWithoutSupervisorInput
   jobPostings?: Prisma.JobPostingCreateNestedManyWithoutPosterInput
   mentorProfile?: Prisma.MentorProfileCreateNestedOneWithoutUserInput
+  suggestions?: Prisma.SuggestionCreateNestedManyWithoutSenderInput
+  lostFoundPosts?: Prisma.LostFoundItemCreateNestedManyWithoutPostedByInput
+  createdStaffTokens?: Prisma.StaffSignupTokenCreateNestedManyWithoutCreatedByInput
+  createdPositionOptions?: Prisma.StaffPositionOptionCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutSupervisedByInput = {
@@ -1277,6 +1542,8 @@ export type UserUncheckedCreateWithoutSupervisedByInput = {
   email: string
   passwordHash: string
   role?: $Enums.Role
+  staffPosition?: string | null
+  staffDepartment?: string | null
   departmentId?: string | null
   groupId?: string | null
   officeId?: string | null
@@ -1288,6 +1555,10 @@ export type UserUncheckedCreateWithoutSupervisedByInput = {
   supervising?: Prisma.SupervisionUncheckedCreateNestedManyWithoutSupervisorInput
   jobPostings?: Prisma.JobPostingUncheckedCreateNestedManyWithoutPosterInput
   mentorProfile?: Prisma.MentorProfileUncheckedCreateNestedOneWithoutUserInput
+  suggestions?: Prisma.SuggestionUncheckedCreateNestedManyWithoutSenderInput
+  lostFoundPosts?: Prisma.LostFoundItemUncheckedCreateNestedManyWithoutPostedByInput
+  createdStaffTokens?: Prisma.StaffSignupTokenUncheckedCreateNestedManyWithoutCreatedByInput
+  createdPositionOptions?: Prisma.StaffPositionOptionUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutSupervisedByInput = {
@@ -1312,6 +1583,8 @@ export type UserUpdateWithoutSupervisingInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  staffPosition?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  staffDepartment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   department?: Prisma.DepartmentUpdateOneWithoutUsersNestedInput
@@ -1323,6 +1596,10 @@ export type UserUpdateWithoutSupervisingInput = {
   supervisedBy?: Prisma.SupervisionUpdateManyWithoutSuperviseeNestedInput
   jobPostings?: Prisma.JobPostingUpdateManyWithoutPosterNestedInput
   mentorProfile?: Prisma.MentorProfileUpdateOneWithoutUserNestedInput
+  suggestions?: Prisma.SuggestionUpdateManyWithoutSenderNestedInput
+  lostFoundPosts?: Prisma.LostFoundItemUpdateManyWithoutPostedByNestedInput
+  createdStaffTokens?: Prisma.StaffSignupTokenUpdateManyWithoutCreatedByNestedInput
+  createdPositionOptions?: Prisma.StaffPositionOptionUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSupervisingInput = {
@@ -1331,6 +1608,8 @@ export type UserUncheckedUpdateWithoutSupervisingInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  staffPosition?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  staffDepartment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   departmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   groupId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   officeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1342,6 +1621,10 @@ export type UserUncheckedUpdateWithoutSupervisingInput = {
   supervisedBy?: Prisma.SupervisionUncheckedUpdateManyWithoutSuperviseeNestedInput
   jobPostings?: Prisma.JobPostingUncheckedUpdateManyWithoutPosterNestedInput
   mentorProfile?: Prisma.MentorProfileUncheckedUpdateOneWithoutUserNestedInput
+  suggestions?: Prisma.SuggestionUncheckedUpdateManyWithoutSenderNestedInput
+  lostFoundPosts?: Prisma.LostFoundItemUncheckedUpdateManyWithoutPostedByNestedInput
+  createdStaffTokens?: Prisma.StaffSignupTokenUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdPositionOptions?: Prisma.StaffPositionOptionUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUpsertWithoutSupervisedByInput = {
@@ -1361,6 +1644,8 @@ export type UserUpdateWithoutSupervisedByInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  staffPosition?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  staffDepartment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   department?: Prisma.DepartmentUpdateOneWithoutUsersNestedInput
@@ -1372,6 +1657,10 @@ export type UserUpdateWithoutSupervisedByInput = {
   supervising?: Prisma.SupervisionUpdateManyWithoutSupervisorNestedInput
   jobPostings?: Prisma.JobPostingUpdateManyWithoutPosterNestedInput
   mentorProfile?: Prisma.MentorProfileUpdateOneWithoutUserNestedInput
+  suggestions?: Prisma.SuggestionUpdateManyWithoutSenderNestedInput
+  lostFoundPosts?: Prisma.LostFoundItemUpdateManyWithoutPostedByNestedInput
+  createdStaffTokens?: Prisma.StaffSignupTokenUpdateManyWithoutCreatedByNestedInput
+  createdPositionOptions?: Prisma.StaffPositionOptionUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSupervisedByInput = {
@@ -1380,6 +1669,8 @@ export type UserUncheckedUpdateWithoutSupervisedByInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  staffPosition?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  staffDepartment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   departmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   groupId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   officeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1391,6 +1682,358 @@ export type UserUncheckedUpdateWithoutSupervisedByInput = {
   supervising?: Prisma.SupervisionUncheckedUpdateManyWithoutSupervisorNestedInput
   jobPostings?: Prisma.JobPostingUncheckedUpdateManyWithoutPosterNestedInput
   mentorProfile?: Prisma.MentorProfileUncheckedUpdateOneWithoutUserNestedInput
+  suggestions?: Prisma.SuggestionUncheckedUpdateManyWithoutSenderNestedInput
+  lostFoundPosts?: Prisma.LostFoundItemUncheckedUpdateManyWithoutPostedByNestedInput
+  createdStaffTokens?: Prisma.StaffSignupTokenUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdPositionOptions?: Prisma.StaffPositionOptionUncheckedUpdateManyWithoutCreatedByNestedInput
+}
+
+export type UserCreateWithoutSuggestionsInput = {
+  id?: string
+  name: string
+  email: string
+  passwordHash: string
+  role?: $Enums.Role
+  staffPosition?: string | null
+  staffDepartment?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  department?: Prisma.DepartmentCreateNestedOneWithoutUsersInput
+  group?: Prisma.AcademicGroupCreateNestedOneWithoutUsersInput
+  office?: Prisma.OfficeCreateNestedOneWithoutUsersInput
+  uploadedDocuments?: Prisma.DocumentCreateNestedManyWithoutUploaderInput
+  sharesSent?: Prisma.ShareCreateNestedManyWithoutSenderInput
+  access?: Prisma.UserDocumentAccessCreateNestedManyWithoutUserInput
+  supervising?: Prisma.SupervisionCreateNestedManyWithoutSupervisorInput
+  supervisedBy?: Prisma.SupervisionCreateNestedManyWithoutSuperviseeInput
+  jobPostings?: Prisma.JobPostingCreateNestedManyWithoutPosterInput
+  mentorProfile?: Prisma.MentorProfileCreateNestedOneWithoutUserInput
+  lostFoundPosts?: Prisma.LostFoundItemCreateNestedManyWithoutPostedByInput
+  createdStaffTokens?: Prisma.StaffSignupTokenCreateNestedManyWithoutCreatedByInput
+  createdPositionOptions?: Prisma.StaffPositionOptionCreateNestedManyWithoutCreatedByInput
+}
+
+export type UserUncheckedCreateWithoutSuggestionsInput = {
+  id?: string
+  name: string
+  email: string
+  passwordHash: string
+  role?: $Enums.Role
+  staffPosition?: string | null
+  staffDepartment?: string | null
+  departmentId?: string | null
+  groupId?: string | null
+  officeId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  uploadedDocuments?: Prisma.DocumentUncheckedCreateNestedManyWithoutUploaderInput
+  sharesSent?: Prisma.ShareUncheckedCreateNestedManyWithoutSenderInput
+  access?: Prisma.UserDocumentAccessUncheckedCreateNestedManyWithoutUserInput
+  supervising?: Prisma.SupervisionUncheckedCreateNestedManyWithoutSupervisorInput
+  supervisedBy?: Prisma.SupervisionUncheckedCreateNestedManyWithoutSuperviseeInput
+  jobPostings?: Prisma.JobPostingUncheckedCreateNestedManyWithoutPosterInput
+  mentorProfile?: Prisma.MentorProfileUncheckedCreateNestedOneWithoutUserInput
+  lostFoundPosts?: Prisma.LostFoundItemUncheckedCreateNestedManyWithoutPostedByInput
+  createdStaffTokens?: Prisma.StaffSignupTokenUncheckedCreateNestedManyWithoutCreatedByInput
+  createdPositionOptions?: Prisma.StaffPositionOptionUncheckedCreateNestedManyWithoutCreatedByInput
+}
+
+export type UserCreateOrConnectWithoutSuggestionsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutSuggestionsInput, Prisma.UserUncheckedCreateWithoutSuggestionsInput>
+}
+
+export type UserUpsertWithoutSuggestionsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutSuggestionsInput, Prisma.UserUncheckedUpdateWithoutSuggestionsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutSuggestionsInput, Prisma.UserUncheckedCreateWithoutSuggestionsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutSuggestionsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutSuggestionsInput, Prisma.UserUncheckedUpdateWithoutSuggestionsInput>
+}
+
+export type UserUpdateWithoutSuggestionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  staffPosition?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  staffDepartment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  department?: Prisma.DepartmentUpdateOneWithoutUsersNestedInput
+  group?: Prisma.AcademicGroupUpdateOneWithoutUsersNestedInput
+  office?: Prisma.OfficeUpdateOneWithoutUsersNestedInput
+  uploadedDocuments?: Prisma.DocumentUpdateManyWithoutUploaderNestedInput
+  sharesSent?: Prisma.ShareUpdateManyWithoutSenderNestedInput
+  access?: Prisma.UserDocumentAccessUpdateManyWithoutUserNestedInput
+  supervising?: Prisma.SupervisionUpdateManyWithoutSupervisorNestedInput
+  supervisedBy?: Prisma.SupervisionUpdateManyWithoutSuperviseeNestedInput
+  jobPostings?: Prisma.JobPostingUpdateManyWithoutPosterNestedInput
+  mentorProfile?: Prisma.MentorProfileUpdateOneWithoutUserNestedInput
+  lostFoundPosts?: Prisma.LostFoundItemUpdateManyWithoutPostedByNestedInput
+  createdStaffTokens?: Prisma.StaffSignupTokenUpdateManyWithoutCreatedByNestedInput
+  createdPositionOptions?: Prisma.StaffPositionOptionUpdateManyWithoutCreatedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutSuggestionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  staffPosition?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  staffDepartment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  departmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  groupId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  officeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  uploadedDocuments?: Prisma.DocumentUncheckedUpdateManyWithoutUploaderNestedInput
+  sharesSent?: Prisma.ShareUncheckedUpdateManyWithoutSenderNestedInput
+  access?: Prisma.UserDocumentAccessUncheckedUpdateManyWithoutUserNestedInput
+  supervising?: Prisma.SupervisionUncheckedUpdateManyWithoutSupervisorNestedInput
+  supervisedBy?: Prisma.SupervisionUncheckedUpdateManyWithoutSuperviseeNestedInput
+  jobPostings?: Prisma.JobPostingUncheckedUpdateManyWithoutPosterNestedInput
+  mentorProfile?: Prisma.MentorProfileUncheckedUpdateOneWithoutUserNestedInput
+  lostFoundPosts?: Prisma.LostFoundItemUncheckedUpdateManyWithoutPostedByNestedInput
+  createdStaffTokens?: Prisma.StaffSignupTokenUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdPositionOptions?: Prisma.StaffPositionOptionUncheckedUpdateManyWithoutCreatedByNestedInput
+}
+
+export type UserCreateWithoutCreatedStaffTokensInput = {
+  id?: string
+  name: string
+  email: string
+  passwordHash: string
+  role?: $Enums.Role
+  staffPosition?: string | null
+  staffDepartment?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  department?: Prisma.DepartmentCreateNestedOneWithoutUsersInput
+  group?: Prisma.AcademicGroupCreateNestedOneWithoutUsersInput
+  office?: Prisma.OfficeCreateNestedOneWithoutUsersInput
+  uploadedDocuments?: Prisma.DocumentCreateNestedManyWithoutUploaderInput
+  sharesSent?: Prisma.ShareCreateNestedManyWithoutSenderInput
+  access?: Prisma.UserDocumentAccessCreateNestedManyWithoutUserInput
+  supervising?: Prisma.SupervisionCreateNestedManyWithoutSupervisorInput
+  supervisedBy?: Prisma.SupervisionCreateNestedManyWithoutSuperviseeInput
+  jobPostings?: Prisma.JobPostingCreateNestedManyWithoutPosterInput
+  mentorProfile?: Prisma.MentorProfileCreateNestedOneWithoutUserInput
+  suggestions?: Prisma.SuggestionCreateNestedManyWithoutSenderInput
+  lostFoundPosts?: Prisma.LostFoundItemCreateNestedManyWithoutPostedByInput
+  createdPositionOptions?: Prisma.StaffPositionOptionCreateNestedManyWithoutCreatedByInput
+}
+
+export type UserUncheckedCreateWithoutCreatedStaffTokensInput = {
+  id?: string
+  name: string
+  email: string
+  passwordHash: string
+  role?: $Enums.Role
+  staffPosition?: string | null
+  staffDepartment?: string | null
+  departmentId?: string | null
+  groupId?: string | null
+  officeId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  uploadedDocuments?: Prisma.DocumentUncheckedCreateNestedManyWithoutUploaderInput
+  sharesSent?: Prisma.ShareUncheckedCreateNestedManyWithoutSenderInput
+  access?: Prisma.UserDocumentAccessUncheckedCreateNestedManyWithoutUserInput
+  supervising?: Prisma.SupervisionUncheckedCreateNestedManyWithoutSupervisorInput
+  supervisedBy?: Prisma.SupervisionUncheckedCreateNestedManyWithoutSuperviseeInput
+  jobPostings?: Prisma.JobPostingUncheckedCreateNestedManyWithoutPosterInput
+  mentorProfile?: Prisma.MentorProfileUncheckedCreateNestedOneWithoutUserInput
+  suggestions?: Prisma.SuggestionUncheckedCreateNestedManyWithoutSenderInput
+  lostFoundPosts?: Prisma.LostFoundItemUncheckedCreateNestedManyWithoutPostedByInput
+  createdPositionOptions?: Prisma.StaffPositionOptionUncheckedCreateNestedManyWithoutCreatedByInput
+}
+
+export type UserCreateOrConnectWithoutCreatedStaffTokensInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutCreatedStaffTokensInput, Prisma.UserUncheckedCreateWithoutCreatedStaffTokensInput>
+}
+
+export type UserUpsertWithoutCreatedStaffTokensInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutCreatedStaffTokensInput, Prisma.UserUncheckedUpdateWithoutCreatedStaffTokensInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutCreatedStaffTokensInput, Prisma.UserUncheckedCreateWithoutCreatedStaffTokensInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutCreatedStaffTokensInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutCreatedStaffTokensInput, Prisma.UserUncheckedUpdateWithoutCreatedStaffTokensInput>
+}
+
+export type UserUpdateWithoutCreatedStaffTokensInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  staffPosition?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  staffDepartment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  department?: Prisma.DepartmentUpdateOneWithoutUsersNestedInput
+  group?: Prisma.AcademicGroupUpdateOneWithoutUsersNestedInput
+  office?: Prisma.OfficeUpdateOneWithoutUsersNestedInput
+  uploadedDocuments?: Prisma.DocumentUpdateManyWithoutUploaderNestedInput
+  sharesSent?: Prisma.ShareUpdateManyWithoutSenderNestedInput
+  access?: Prisma.UserDocumentAccessUpdateManyWithoutUserNestedInput
+  supervising?: Prisma.SupervisionUpdateManyWithoutSupervisorNestedInput
+  supervisedBy?: Prisma.SupervisionUpdateManyWithoutSuperviseeNestedInput
+  jobPostings?: Prisma.JobPostingUpdateManyWithoutPosterNestedInput
+  mentorProfile?: Prisma.MentorProfileUpdateOneWithoutUserNestedInput
+  suggestions?: Prisma.SuggestionUpdateManyWithoutSenderNestedInput
+  lostFoundPosts?: Prisma.LostFoundItemUpdateManyWithoutPostedByNestedInput
+  createdPositionOptions?: Prisma.StaffPositionOptionUpdateManyWithoutCreatedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutCreatedStaffTokensInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  staffPosition?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  staffDepartment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  departmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  groupId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  officeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  uploadedDocuments?: Prisma.DocumentUncheckedUpdateManyWithoutUploaderNestedInput
+  sharesSent?: Prisma.ShareUncheckedUpdateManyWithoutSenderNestedInput
+  access?: Prisma.UserDocumentAccessUncheckedUpdateManyWithoutUserNestedInput
+  supervising?: Prisma.SupervisionUncheckedUpdateManyWithoutSupervisorNestedInput
+  supervisedBy?: Prisma.SupervisionUncheckedUpdateManyWithoutSuperviseeNestedInput
+  jobPostings?: Prisma.JobPostingUncheckedUpdateManyWithoutPosterNestedInput
+  mentorProfile?: Prisma.MentorProfileUncheckedUpdateOneWithoutUserNestedInput
+  suggestions?: Prisma.SuggestionUncheckedUpdateManyWithoutSenderNestedInput
+  lostFoundPosts?: Prisma.LostFoundItemUncheckedUpdateManyWithoutPostedByNestedInput
+  createdPositionOptions?: Prisma.StaffPositionOptionUncheckedUpdateManyWithoutCreatedByNestedInput
+}
+
+export type UserCreateWithoutCreatedPositionOptionsInput = {
+  id?: string
+  name: string
+  email: string
+  passwordHash: string
+  role?: $Enums.Role
+  staffPosition?: string | null
+  staffDepartment?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  department?: Prisma.DepartmentCreateNestedOneWithoutUsersInput
+  group?: Prisma.AcademicGroupCreateNestedOneWithoutUsersInput
+  office?: Prisma.OfficeCreateNestedOneWithoutUsersInput
+  uploadedDocuments?: Prisma.DocumentCreateNestedManyWithoutUploaderInput
+  sharesSent?: Prisma.ShareCreateNestedManyWithoutSenderInput
+  access?: Prisma.UserDocumentAccessCreateNestedManyWithoutUserInput
+  supervising?: Prisma.SupervisionCreateNestedManyWithoutSupervisorInput
+  supervisedBy?: Prisma.SupervisionCreateNestedManyWithoutSuperviseeInput
+  jobPostings?: Prisma.JobPostingCreateNestedManyWithoutPosterInput
+  mentorProfile?: Prisma.MentorProfileCreateNestedOneWithoutUserInput
+  suggestions?: Prisma.SuggestionCreateNestedManyWithoutSenderInput
+  lostFoundPosts?: Prisma.LostFoundItemCreateNestedManyWithoutPostedByInput
+  createdStaffTokens?: Prisma.StaffSignupTokenCreateNestedManyWithoutCreatedByInput
+}
+
+export type UserUncheckedCreateWithoutCreatedPositionOptionsInput = {
+  id?: string
+  name: string
+  email: string
+  passwordHash: string
+  role?: $Enums.Role
+  staffPosition?: string | null
+  staffDepartment?: string | null
+  departmentId?: string | null
+  groupId?: string | null
+  officeId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  uploadedDocuments?: Prisma.DocumentUncheckedCreateNestedManyWithoutUploaderInput
+  sharesSent?: Prisma.ShareUncheckedCreateNestedManyWithoutSenderInput
+  access?: Prisma.UserDocumentAccessUncheckedCreateNestedManyWithoutUserInput
+  supervising?: Prisma.SupervisionUncheckedCreateNestedManyWithoutSupervisorInput
+  supervisedBy?: Prisma.SupervisionUncheckedCreateNestedManyWithoutSuperviseeInput
+  jobPostings?: Prisma.JobPostingUncheckedCreateNestedManyWithoutPosterInput
+  mentorProfile?: Prisma.MentorProfileUncheckedCreateNestedOneWithoutUserInput
+  suggestions?: Prisma.SuggestionUncheckedCreateNestedManyWithoutSenderInput
+  lostFoundPosts?: Prisma.LostFoundItemUncheckedCreateNestedManyWithoutPostedByInput
+  createdStaffTokens?: Prisma.StaffSignupTokenUncheckedCreateNestedManyWithoutCreatedByInput
+}
+
+export type UserCreateOrConnectWithoutCreatedPositionOptionsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutCreatedPositionOptionsInput, Prisma.UserUncheckedCreateWithoutCreatedPositionOptionsInput>
+}
+
+export type UserUpsertWithoutCreatedPositionOptionsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutCreatedPositionOptionsInput, Prisma.UserUncheckedUpdateWithoutCreatedPositionOptionsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutCreatedPositionOptionsInput, Prisma.UserUncheckedCreateWithoutCreatedPositionOptionsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutCreatedPositionOptionsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutCreatedPositionOptionsInput, Prisma.UserUncheckedUpdateWithoutCreatedPositionOptionsInput>
+}
+
+export type UserUpdateWithoutCreatedPositionOptionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  staffPosition?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  staffDepartment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  department?: Prisma.DepartmentUpdateOneWithoutUsersNestedInput
+  group?: Prisma.AcademicGroupUpdateOneWithoutUsersNestedInput
+  office?: Prisma.OfficeUpdateOneWithoutUsersNestedInput
+  uploadedDocuments?: Prisma.DocumentUpdateManyWithoutUploaderNestedInput
+  sharesSent?: Prisma.ShareUpdateManyWithoutSenderNestedInput
+  access?: Prisma.UserDocumentAccessUpdateManyWithoutUserNestedInput
+  supervising?: Prisma.SupervisionUpdateManyWithoutSupervisorNestedInput
+  supervisedBy?: Prisma.SupervisionUpdateManyWithoutSuperviseeNestedInput
+  jobPostings?: Prisma.JobPostingUpdateManyWithoutPosterNestedInput
+  mentorProfile?: Prisma.MentorProfileUpdateOneWithoutUserNestedInput
+  suggestions?: Prisma.SuggestionUpdateManyWithoutSenderNestedInput
+  lostFoundPosts?: Prisma.LostFoundItemUpdateManyWithoutPostedByNestedInput
+  createdStaffTokens?: Prisma.StaffSignupTokenUpdateManyWithoutCreatedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutCreatedPositionOptionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  staffPosition?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  staffDepartment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  departmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  groupId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  officeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  uploadedDocuments?: Prisma.DocumentUncheckedUpdateManyWithoutUploaderNestedInput
+  sharesSent?: Prisma.ShareUncheckedUpdateManyWithoutSenderNestedInput
+  access?: Prisma.UserDocumentAccessUncheckedUpdateManyWithoutUserNestedInput
+  supervising?: Prisma.SupervisionUncheckedUpdateManyWithoutSupervisorNestedInput
+  supervisedBy?: Prisma.SupervisionUncheckedUpdateManyWithoutSuperviseeNestedInput
+  jobPostings?: Prisma.JobPostingUncheckedUpdateManyWithoutPosterNestedInput
+  mentorProfile?: Prisma.MentorProfileUncheckedUpdateOneWithoutUserNestedInput
+  suggestions?: Prisma.SuggestionUncheckedUpdateManyWithoutSenderNestedInput
+  lostFoundPosts?: Prisma.LostFoundItemUncheckedUpdateManyWithoutPostedByNestedInput
+  createdStaffTokens?: Prisma.StaffSignupTokenUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateWithoutJobPostingsInput = {
@@ -1399,6 +2042,8 @@ export type UserCreateWithoutJobPostingsInput = {
   email: string
   passwordHash: string
   role?: $Enums.Role
+  staffPosition?: string | null
+  staffDepartment?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   department?: Prisma.DepartmentCreateNestedOneWithoutUsersInput
@@ -1410,6 +2055,10 @@ export type UserCreateWithoutJobPostingsInput = {
   supervising?: Prisma.SupervisionCreateNestedManyWithoutSupervisorInput
   supervisedBy?: Prisma.SupervisionCreateNestedManyWithoutSuperviseeInput
   mentorProfile?: Prisma.MentorProfileCreateNestedOneWithoutUserInput
+  suggestions?: Prisma.SuggestionCreateNestedManyWithoutSenderInput
+  lostFoundPosts?: Prisma.LostFoundItemCreateNestedManyWithoutPostedByInput
+  createdStaffTokens?: Prisma.StaffSignupTokenCreateNestedManyWithoutCreatedByInput
+  createdPositionOptions?: Prisma.StaffPositionOptionCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutJobPostingsInput = {
@@ -1418,6 +2067,8 @@ export type UserUncheckedCreateWithoutJobPostingsInput = {
   email: string
   passwordHash: string
   role?: $Enums.Role
+  staffPosition?: string | null
+  staffDepartment?: string | null
   departmentId?: string | null
   groupId?: string | null
   officeId?: string | null
@@ -1429,6 +2080,10 @@ export type UserUncheckedCreateWithoutJobPostingsInput = {
   supervising?: Prisma.SupervisionUncheckedCreateNestedManyWithoutSupervisorInput
   supervisedBy?: Prisma.SupervisionUncheckedCreateNestedManyWithoutSuperviseeInput
   mentorProfile?: Prisma.MentorProfileUncheckedCreateNestedOneWithoutUserInput
+  suggestions?: Prisma.SuggestionUncheckedCreateNestedManyWithoutSenderInput
+  lostFoundPosts?: Prisma.LostFoundItemUncheckedCreateNestedManyWithoutPostedByInput
+  createdStaffTokens?: Prisma.StaffSignupTokenUncheckedCreateNestedManyWithoutCreatedByInput
+  createdPositionOptions?: Prisma.StaffPositionOptionUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutJobPostingsInput = {
@@ -1453,6 +2108,8 @@ export type UserUpdateWithoutJobPostingsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  staffPosition?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  staffDepartment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   department?: Prisma.DepartmentUpdateOneWithoutUsersNestedInput
@@ -1464,6 +2121,10 @@ export type UserUpdateWithoutJobPostingsInput = {
   supervising?: Prisma.SupervisionUpdateManyWithoutSupervisorNestedInput
   supervisedBy?: Prisma.SupervisionUpdateManyWithoutSuperviseeNestedInput
   mentorProfile?: Prisma.MentorProfileUpdateOneWithoutUserNestedInput
+  suggestions?: Prisma.SuggestionUpdateManyWithoutSenderNestedInput
+  lostFoundPosts?: Prisma.LostFoundItemUpdateManyWithoutPostedByNestedInput
+  createdStaffTokens?: Prisma.StaffSignupTokenUpdateManyWithoutCreatedByNestedInput
+  createdPositionOptions?: Prisma.StaffPositionOptionUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutJobPostingsInput = {
@@ -1472,6 +2133,8 @@ export type UserUncheckedUpdateWithoutJobPostingsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  staffPosition?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  staffDepartment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   departmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   groupId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   officeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1483,6 +2146,10 @@ export type UserUncheckedUpdateWithoutJobPostingsInput = {
   supervising?: Prisma.SupervisionUncheckedUpdateManyWithoutSupervisorNestedInput
   supervisedBy?: Prisma.SupervisionUncheckedUpdateManyWithoutSuperviseeNestedInput
   mentorProfile?: Prisma.MentorProfileUncheckedUpdateOneWithoutUserNestedInput
+  suggestions?: Prisma.SuggestionUncheckedUpdateManyWithoutSenderNestedInput
+  lostFoundPosts?: Prisma.LostFoundItemUncheckedUpdateManyWithoutPostedByNestedInput
+  createdStaffTokens?: Prisma.StaffSignupTokenUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdPositionOptions?: Prisma.StaffPositionOptionUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateWithoutMentorProfileInput = {
@@ -1491,6 +2158,8 @@ export type UserCreateWithoutMentorProfileInput = {
   email: string
   passwordHash: string
   role?: $Enums.Role
+  staffPosition?: string | null
+  staffDepartment?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   department?: Prisma.DepartmentCreateNestedOneWithoutUsersInput
@@ -1502,6 +2171,10 @@ export type UserCreateWithoutMentorProfileInput = {
   supervising?: Prisma.SupervisionCreateNestedManyWithoutSupervisorInput
   supervisedBy?: Prisma.SupervisionCreateNestedManyWithoutSuperviseeInput
   jobPostings?: Prisma.JobPostingCreateNestedManyWithoutPosterInput
+  suggestions?: Prisma.SuggestionCreateNestedManyWithoutSenderInput
+  lostFoundPosts?: Prisma.LostFoundItemCreateNestedManyWithoutPostedByInput
+  createdStaffTokens?: Prisma.StaffSignupTokenCreateNestedManyWithoutCreatedByInput
+  createdPositionOptions?: Prisma.StaffPositionOptionCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutMentorProfileInput = {
@@ -1510,6 +2183,8 @@ export type UserUncheckedCreateWithoutMentorProfileInput = {
   email: string
   passwordHash: string
   role?: $Enums.Role
+  staffPosition?: string | null
+  staffDepartment?: string | null
   departmentId?: string | null
   groupId?: string | null
   officeId?: string | null
@@ -1521,6 +2196,10 @@ export type UserUncheckedCreateWithoutMentorProfileInput = {
   supervising?: Prisma.SupervisionUncheckedCreateNestedManyWithoutSupervisorInput
   supervisedBy?: Prisma.SupervisionUncheckedCreateNestedManyWithoutSuperviseeInput
   jobPostings?: Prisma.JobPostingUncheckedCreateNestedManyWithoutPosterInput
+  suggestions?: Prisma.SuggestionUncheckedCreateNestedManyWithoutSenderInput
+  lostFoundPosts?: Prisma.LostFoundItemUncheckedCreateNestedManyWithoutPostedByInput
+  createdStaffTokens?: Prisma.StaffSignupTokenUncheckedCreateNestedManyWithoutCreatedByInput
+  createdPositionOptions?: Prisma.StaffPositionOptionUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutMentorProfileInput = {
@@ -1545,6 +2224,8 @@ export type UserUpdateWithoutMentorProfileInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  staffPosition?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  staffDepartment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   department?: Prisma.DepartmentUpdateOneWithoutUsersNestedInput
@@ -1556,6 +2237,10 @@ export type UserUpdateWithoutMentorProfileInput = {
   supervising?: Prisma.SupervisionUpdateManyWithoutSupervisorNestedInput
   supervisedBy?: Prisma.SupervisionUpdateManyWithoutSuperviseeNestedInput
   jobPostings?: Prisma.JobPostingUpdateManyWithoutPosterNestedInput
+  suggestions?: Prisma.SuggestionUpdateManyWithoutSenderNestedInput
+  lostFoundPosts?: Prisma.LostFoundItemUpdateManyWithoutPostedByNestedInput
+  createdStaffTokens?: Prisma.StaffSignupTokenUpdateManyWithoutCreatedByNestedInput
+  createdPositionOptions?: Prisma.StaffPositionOptionUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMentorProfileInput = {
@@ -1564,6 +2249,8 @@ export type UserUncheckedUpdateWithoutMentorProfileInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  staffPosition?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  staffDepartment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   departmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   groupId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   officeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1575,6 +2262,126 @@ export type UserUncheckedUpdateWithoutMentorProfileInput = {
   supervising?: Prisma.SupervisionUncheckedUpdateManyWithoutSupervisorNestedInput
   supervisedBy?: Prisma.SupervisionUncheckedUpdateManyWithoutSuperviseeNestedInput
   jobPostings?: Prisma.JobPostingUncheckedUpdateManyWithoutPosterNestedInput
+  suggestions?: Prisma.SuggestionUncheckedUpdateManyWithoutSenderNestedInput
+  lostFoundPosts?: Prisma.LostFoundItemUncheckedUpdateManyWithoutPostedByNestedInput
+  createdStaffTokens?: Prisma.StaffSignupTokenUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdPositionOptions?: Prisma.StaffPositionOptionUncheckedUpdateManyWithoutCreatedByNestedInput
+}
+
+export type UserCreateWithoutLostFoundPostsInput = {
+  id?: string
+  name: string
+  email: string
+  passwordHash: string
+  role?: $Enums.Role
+  staffPosition?: string | null
+  staffDepartment?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  department?: Prisma.DepartmentCreateNestedOneWithoutUsersInput
+  group?: Prisma.AcademicGroupCreateNestedOneWithoutUsersInput
+  office?: Prisma.OfficeCreateNestedOneWithoutUsersInput
+  uploadedDocuments?: Prisma.DocumentCreateNestedManyWithoutUploaderInput
+  sharesSent?: Prisma.ShareCreateNestedManyWithoutSenderInput
+  access?: Prisma.UserDocumentAccessCreateNestedManyWithoutUserInput
+  supervising?: Prisma.SupervisionCreateNestedManyWithoutSupervisorInput
+  supervisedBy?: Prisma.SupervisionCreateNestedManyWithoutSuperviseeInput
+  jobPostings?: Prisma.JobPostingCreateNestedManyWithoutPosterInput
+  mentorProfile?: Prisma.MentorProfileCreateNestedOneWithoutUserInput
+  suggestions?: Prisma.SuggestionCreateNestedManyWithoutSenderInput
+  createdStaffTokens?: Prisma.StaffSignupTokenCreateNestedManyWithoutCreatedByInput
+  createdPositionOptions?: Prisma.StaffPositionOptionCreateNestedManyWithoutCreatedByInput
+}
+
+export type UserUncheckedCreateWithoutLostFoundPostsInput = {
+  id?: string
+  name: string
+  email: string
+  passwordHash: string
+  role?: $Enums.Role
+  staffPosition?: string | null
+  staffDepartment?: string | null
+  departmentId?: string | null
+  groupId?: string | null
+  officeId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  uploadedDocuments?: Prisma.DocumentUncheckedCreateNestedManyWithoutUploaderInput
+  sharesSent?: Prisma.ShareUncheckedCreateNestedManyWithoutSenderInput
+  access?: Prisma.UserDocumentAccessUncheckedCreateNestedManyWithoutUserInput
+  supervising?: Prisma.SupervisionUncheckedCreateNestedManyWithoutSupervisorInput
+  supervisedBy?: Prisma.SupervisionUncheckedCreateNestedManyWithoutSuperviseeInput
+  jobPostings?: Prisma.JobPostingUncheckedCreateNestedManyWithoutPosterInput
+  mentorProfile?: Prisma.MentorProfileUncheckedCreateNestedOneWithoutUserInput
+  suggestions?: Prisma.SuggestionUncheckedCreateNestedManyWithoutSenderInput
+  createdStaffTokens?: Prisma.StaffSignupTokenUncheckedCreateNestedManyWithoutCreatedByInput
+  createdPositionOptions?: Prisma.StaffPositionOptionUncheckedCreateNestedManyWithoutCreatedByInput
+}
+
+export type UserCreateOrConnectWithoutLostFoundPostsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutLostFoundPostsInput, Prisma.UserUncheckedCreateWithoutLostFoundPostsInput>
+}
+
+export type UserUpsertWithoutLostFoundPostsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutLostFoundPostsInput, Prisma.UserUncheckedUpdateWithoutLostFoundPostsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutLostFoundPostsInput, Prisma.UserUncheckedCreateWithoutLostFoundPostsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutLostFoundPostsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutLostFoundPostsInput, Prisma.UserUncheckedUpdateWithoutLostFoundPostsInput>
+}
+
+export type UserUpdateWithoutLostFoundPostsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  staffPosition?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  staffDepartment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  department?: Prisma.DepartmentUpdateOneWithoutUsersNestedInput
+  group?: Prisma.AcademicGroupUpdateOneWithoutUsersNestedInput
+  office?: Prisma.OfficeUpdateOneWithoutUsersNestedInput
+  uploadedDocuments?: Prisma.DocumentUpdateManyWithoutUploaderNestedInput
+  sharesSent?: Prisma.ShareUpdateManyWithoutSenderNestedInput
+  access?: Prisma.UserDocumentAccessUpdateManyWithoutUserNestedInput
+  supervising?: Prisma.SupervisionUpdateManyWithoutSupervisorNestedInput
+  supervisedBy?: Prisma.SupervisionUpdateManyWithoutSuperviseeNestedInput
+  jobPostings?: Prisma.JobPostingUpdateManyWithoutPosterNestedInput
+  mentorProfile?: Prisma.MentorProfileUpdateOneWithoutUserNestedInput
+  suggestions?: Prisma.SuggestionUpdateManyWithoutSenderNestedInput
+  createdStaffTokens?: Prisma.StaffSignupTokenUpdateManyWithoutCreatedByNestedInput
+  createdPositionOptions?: Prisma.StaffPositionOptionUpdateManyWithoutCreatedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutLostFoundPostsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  staffPosition?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  staffDepartment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  departmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  groupId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  officeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  uploadedDocuments?: Prisma.DocumentUncheckedUpdateManyWithoutUploaderNestedInput
+  sharesSent?: Prisma.ShareUncheckedUpdateManyWithoutSenderNestedInput
+  access?: Prisma.UserDocumentAccessUncheckedUpdateManyWithoutUserNestedInput
+  supervising?: Prisma.SupervisionUncheckedUpdateManyWithoutSupervisorNestedInput
+  supervisedBy?: Prisma.SupervisionUncheckedUpdateManyWithoutSuperviseeNestedInput
+  jobPostings?: Prisma.JobPostingUncheckedUpdateManyWithoutPosterNestedInput
+  mentorProfile?: Prisma.MentorProfileUncheckedUpdateOneWithoutUserNestedInput
+  suggestions?: Prisma.SuggestionUncheckedUpdateManyWithoutSenderNestedInput
+  createdStaffTokens?: Prisma.StaffSignupTokenUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdPositionOptions?: Prisma.StaffPositionOptionUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateManyDepartmentInput = {
@@ -1583,6 +2390,8 @@ export type UserCreateManyDepartmentInput = {
   email: string
   passwordHash: string
   role?: $Enums.Role
+  staffPosition?: string | null
+  staffDepartment?: string | null
   groupId?: string | null
   officeId?: string | null
   createdAt?: Date | string
@@ -1595,6 +2404,8 @@ export type UserUpdateWithoutDepartmentInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  staffPosition?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  staffDepartment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   group?: Prisma.AcademicGroupUpdateOneWithoutUsersNestedInput
@@ -1606,6 +2417,10 @@ export type UserUpdateWithoutDepartmentInput = {
   supervisedBy?: Prisma.SupervisionUpdateManyWithoutSuperviseeNestedInput
   jobPostings?: Prisma.JobPostingUpdateManyWithoutPosterNestedInput
   mentorProfile?: Prisma.MentorProfileUpdateOneWithoutUserNestedInput
+  suggestions?: Prisma.SuggestionUpdateManyWithoutSenderNestedInput
+  lostFoundPosts?: Prisma.LostFoundItemUpdateManyWithoutPostedByNestedInput
+  createdStaffTokens?: Prisma.StaffSignupTokenUpdateManyWithoutCreatedByNestedInput
+  createdPositionOptions?: Prisma.StaffPositionOptionUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDepartmentInput = {
@@ -1614,6 +2429,8 @@ export type UserUncheckedUpdateWithoutDepartmentInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  staffPosition?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  staffDepartment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   groupId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   officeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1625,6 +2442,10 @@ export type UserUncheckedUpdateWithoutDepartmentInput = {
   supervisedBy?: Prisma.SupervisionUncheckedUpdateManyWithoutSuperviseeNestedInput
   jobPostings?: Prisma.JobPostingUncheckedUpdateManyWithoutPosterNestedInput
   mentorProfile?: Prisma.MentorProfileUncheckedUpdateOneWithoutUserNestedInput
+  suggestions?: Prisma.SuggestionUncheckedUpdateManyWithoutSenderNestedInput
+  lostFoundPosts?: Prisma.LostFoundItemUncheckedUpdateManyWithoutPostedByNestedInput
+  createdStaffTokens?: Prisma.StaffSignupTokenUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdPositionOptions?: Prisma.StaffPositionOptionUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateManyWithoutDepartmentInput = {
@@ -1633,6 +2454,8 @@ export type UserUncheckedUpdateManyWithoutDepartmentInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  staffPosition?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  staffDepartment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   groupId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   officeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1645,6 +2468,8 @@ export type UserCreateManyGroupInput = {
   email: string
   passwordHash: string
   role?: $Enums.Role
+  staffPosition?: string | null
+  staffDepartment?: string | null
   departmentId?: string | null
   officeId?: string | null
   createdAt?: Date | string
@@ -1657,6 +2482,8 @@ export type UserUpdateWithoutGroupInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  staffPosition?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  staffDepartment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   department?: Prisma.DepartmentUpdateOneWithoutUsersNestedInput
@@ -1668,6 +2495,10 @@ export type UserUpdateWithoutGroupInput = {
   supervisedBy?: Prisma.SupervisionUpdateManyWithoutSuperviseeNestedInput
   jobPostings?: Prisma.JobPostingUpdateManyWithoutPosterNestedInput
   mentorProfile?: Prisma.MentorProfileUpdateOneWithoutUserNestedInput
+  suggestions?: Prisma.SuggestionUpdateManyWithoutSenderNestedInput
+  lostFoundPosts?: Prisma.LostFoundItemUpdateManyWithoutPostedByNestedInput
+  createdStaffTokens?: Prisma.StaffSignupTokenUpdateManyWithoutCreatedByNestedInput
+  createdPositionOptions?: Prisma.StaffPositionOptionUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutGroupInput = {
@@ -1676,6 +2507,8 @@ export type UserUncheckedUpdateWithoutGroupInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  staffPosition?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  staffDepartment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   departmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   officeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1687,6 +2520,10 @@ export type UserUncheckedUpdateWithoutGroupInput = {
   supervisedBy?: Prisma.SupervisionUncheckedUpdateManyWithoutSuperviseeNestedInput
   jobPostings?: Prisma.JobPostingUncheckedUpdateManyWithoutPosterNestedInput
   mentorProfile?: Prisma.MentorProfileUncheckedUpdateOneWithoutUserNestedInput
+  suggestions?: Prisma.SuggestionUncheckedUpdateManyWithoutSenderNestedInput
+  lostFoundPosts?: Prisma.LostFoundItemUncheckedUpdateManyWithoutPostedByNestedInput
+  createdStaffTokens?: Prisma.StaffSignupTokenUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdPositionOptions?: Prisma.StaffPositionOptionUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateManyWithoutGroupInput = {
@@ -1695,6 +2532,8 @@ export type UserUncheckedUpdateManyWithoutGroupInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  staffPosition?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  staffDepartment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   departmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   officeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1707,6 +2546,8 @@ export type UserCreateManyOfficeInput = {
   email: string
   passwordHash: string
   role?: $Enums.Role
+  staffPosition?: string | null
+  staffDepartment?: string | null
   departmentId?: string | null
   groupId?: string | null
   createdAt?: Date | string
@@ -1719,6 +2560,8 @@ export type UserUpdateWithoutOfficeInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  staffPosition?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  staffDepartment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   department?: Prisma.DepartmentUpdateOneWithoutUsersNestedInput
@@ -1730,6 +2573,10 @@ export type UserUpdateWithoutOfficeInput = {
   supervisedBy?: Prisma.SupervisionUpdateManyWithoutSuperviseeNestedInput
   jobPostings?: Prisma.JobPostingUpdateManyWithoutPosterNestedInput
   mentorProfile?: Prisma.MentorProfileUpdateOneWithoutUserNestedInput
+  suggestions?: Prisma.SuggestionUpdateManyWithoutSenderNestedInput
+  lostFoundPosts?: Prisma.LostFoundItemUpdateManyWithoutPostedByNestedInput
+  createdStaffTokens?: Prisma.StaffSignupTokenUpdateManyWithoutCreatedByNestedInput
+  createdPositionOptions?: Prisma.StaffPositionOptionUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutOfficeInput = {
@@ -1738,6 +2585,8 @@ export type UserUncheckedUpdateWithoutOfficeInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  staffPosition?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  staffDepartment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   departmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   groupId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1749,6 +2598,10 @@ export type UserUncheckedUpdateWithoutOfficeInput = {
   supervisedBy?: Prisma.SupervisionUncheckedUpdateManyWithoutSuperviseeNestedInput
   jobPostings?: Prisma.JobPostingUncheckedUpdateManyWithoutPosterNestedInput
   mentorProfile?: Prisma.MentorProfileUncheckedUpdateOneWithoutUserNestedInput
+  suggestions?: Prisma.SuggestionUncheckedUpdateManyWithoutSenderNestedInput
+  lostFoundPosts?: Prisma.LostFoundItemUncheckedUpdateManyWithoutPostedByNestedInput
+  createdStaffTokens?: Prisma.StaffSignupTokenUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdPositionOptions?: Prisma.StaffPositionOptionUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateManyWithoutOfficeInput = {
@@ -1757,6 +2610,8 @@ export type UserUncheckedUpdateManyWithoutOfficeInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  staffPosition?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  staffDepartment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   departmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   groupId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1775,6 +2630,10 @@ export type UserCountOutputType = {
   supervising: number
   supervisedBy: number
   jobPostings: number
+  suggestions: number
+  lostFoundPosts: number
+  createdStaffTokens: number
+  createdPositionOptions: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1784,6 +2643,10 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   supervising?: boolean | UserCountOutputTypeCountSupervisingArgs
   supervisedBy?: boolean | UserCountOutputTypeCountSupervisedByArgs
   jobPostings?: boolean | UserCountOutputTypeCountJobPostingsArgs
+  suggestions?: boolean | UserCountOutputTypeCountSuggestionsArgs
+  lostFoundPosts?: boolean | UserCountOutputTypeCountLostFoundPostsArgs
+  createdStaffTokens?: boolean | UserCountOutputTypeCountCreatedStaffTokensArgs
+  createdPositionOptions?: boolean | UserCountOutputTypeCountCreatedPositionOptionsArgs
 }
 
 /**
@@ -1838,6 +2701,34 @@ export type UserCountOutputTypeCountJobPostingsArgs<ExtArgs extends runtime.Type
   where?: Prisma.JobPostingWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountSuggestionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SuggestionWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountLostFoundPostsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.LostFoundItemWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountCreatedStaffTokensArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.StaffSignupTokenWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountCreatedPositionOptionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.StaffPositionOptionWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1845,6 +2736,8 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   email?: boolean
   passwordHash?: boolean
   role?: boolean
+  staffPosition?: boolean
+  staffDepartment?: boolean
   departmentId?: boolean
   groupId?: boolean
   officeId?: boolean
@@ -1860,6 +2753,10 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   supervisedBy?: boolean | Prisma.User$supervisedByArgs<ExtArgs>
   jobPostings?: boolean | Prisma.User$jobPostingsArgs<ExtArgs>
   mentorProfile?: boolean | Prisma.User$mentorProfileArgs<ExtArgs>
+  suggestions?: boolean | Prisma.User$suggestionsArgs<ExtArgs>
+  lostFoundPosts?: boolean | Prisma.User$lostFoundPostsArgs<ExtArgs>
+  createdStaffTokens?: boolean | Prisma.User$createdStaffTokensArgs<ExtArgs>
+  createdPositionOptions?: boolean | Prisma.User$createdPositionOptionsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -1869,6 +2766,8 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   email?: boolean
   passwordHash?: boolean
   role?: boolean
+  staffPosition?: boolean
+  staffDepartment?: boolean
   departmentId?: boolean
   groupId?: boolean
   officeId?: boolean
@@ -1885,6 +2784,8 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   email?: boolean
   passwordHash?: boolean
   role?: boolean
+  staffPosition?: boolean
+  staffDepartment?: boolean
   departmentId?: boolean
   groupId?: boolean
   officeId?: boolean
@@ -1901,6 +2802,8 @@ export type UserSelectScalar = {
   email?: boolean
   passwordHash?: boolean
   role?: boolean
+  staffPosition?: boolean
+  staffDepartment?: boolean
   departmentId?: boolean
   groupId?: boolean
   officeId?: boolean
@@ -1908,7 +2811,7 @@ export type UserSelectScalar = {
   updatedAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "passwordHash" | "role" | "departmentId" | "groupId" | "officeId" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "passwordHash" | "role" | "staffPosition" | "staffDepartment" | "departmentId" | "groupId" | "officeId" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   department?: boolean | Prisma.User$departmentArgs<ExtArgs>
   group?: boolean | Prisma.User$groupArgs<ExtArgs>
@@ -1920,6 +2823,10 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   supervisedBy?: boolean | Prisma.User$supervisedByArgs<ExtArgs>
   jobPostings?: boolean | Prisma.User$jobPostingsArgs<ExtArgs>
   mentorProfile?: boolean | Prisma.User$mentorProfileArgs<ExtArgs>
+  suggestions?: boolean | Prisma.User$suggestionsArgs<ExtArgs>
+  lostFoundPosts?: boolean | Prisma.User$lostFoundPostsArgs<ExtArgs>
+  createdStaffTokens?: boolean | Prisma.User$createdStaffTokensArgs<ExtArgs>
+  createdPositionOptions?: boolean | Prisma.User$createdPositionOptionsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1946,6 +2853,10 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     supervisedBy: Prisma.$SupervisionPayload<ExtArgs>[]
     jobPostings: Prisma.$JobPostingPayload<ExtArgs>[]
     mentorProfile: Prisma.$MentorProfilePayload<ExtArgs> | null
+    suggestions: Prisma.$SuggestionPayload<ExtArgs>[]
+    lostFoundPosts: Prisma.$LostFoundItemPayload<ExtArgs>[]
+    createdStaffTokens: Prisma.$StaffSignupTokenPayload<ExtArgs>[]
+    createdPositionOptions: Prisma.$StaffPositionOptionPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1953,6 +2864,8 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     email: string
     passwordHash: string
     role: $Enums.Role
+    staffPosition: string | null
+    staffDepartment: string | null
     departmentId: string | null
     groupId: string | null
     officeId: string | null
@@ -2362,6 +3275,10 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   supervisedBy<T extends Prisma.User$supervisedByArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$supervisedByArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SupervisionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   jobPostings<T extends Prisma.User$jobPostingsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$jobPostingsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$JobPostingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   mentorProfile<T extends Prisma.User$mentorProfileArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$mentorProfileArgs<ExtArgs>>): Prisma.Prisma__MentorProfileClient<runtime.Types.Result.GetResult<Prisma.$MentorProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  suggestions<T extends Prisma.User$suggestionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$suggestionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SuggestionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  lostFoundPosts<T extends Prisma.User$lostFoundPostsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$lostFoundPostsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LostFoundItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  createdStaffTokens<T extends Prisma.User$createdStaffTokensArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$createdStaffTokensArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StaffSignupTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  createdPositionOptions<T extends Prisma.User$createdPositionOptionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$createdPositionOptionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StaffPositionOptionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2396,6 +3313,8 @@ export interface UserFieldRefs {
   readonly email: Prisma.FieldRef<"User", 'String'>
   readonly passwordHash: Prisma.FieldRef<"User", 'String'>
   readonly role: Prisma.FieldRef<"User", 'Role'>
+  readonly staffPosition: Prisma.FieldRef<"User", 'String'>
+  readonly staffDepartment: Prisma.FieldRef<"User", 'String'>
   readonly departmentId: Prisma.FieldRef<"User", 'String'>
   readonly groupId: Prisma.FieldRef<"User", 'String'>
   readonly officeId: Prisma.FieldRef<"User", 'String'>
@@ -3014,6 +3933,102 @@ export type User$mentorProfileArgs<ExtArgs extends runtime.Types.Extensions.Inte
    */
   include?: Prisma.MentorProfileInclude<ExtArgs> | null
   where?: Prisma.MentorProfileWhereInput
+}
+
+/**
+ * User.suggestions
+ */
+export type User$suggestionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Suggestion
+   */
+  select?: Prisma.SuggestionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Suggestion
+   */
+  omit?: Prisma.SuggestionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SuggestionInclude<ExtArgs> | null
+  where?: Prisma.SuggestionWhereInput
+  orderBy?: Prisma.SuggestionOrderByWithRelationInput | Prisma.SuggestionOrderByWithRelationInput[]
+  cursor?: Prisma.SuggestionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SuggestionScalarFieldEnum | Prisma.SuggestionScalarFieldEnum[]
+}
+
+/**
+ * User.lostFoundPosts
+ */
+export type User$lostFoundPostsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the LostFoundItem
+   */
+  select?: Prisma.LostFoundItemSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the LostFoundItem
+   */
+  omit?: Prisma.LostFoundItemOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.LostFoundItemInclude<ExtArgs> | null
+  where?: Prisma.LostFoundItemWhereInput
+  orderBy?: Prisma.LostFoundItemOrderByWithRelationInput | Prisma.LostFoundItemOrderByWithRelationInput[]
+  cursor?: Prisma.LostFoundItemWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.LostFoundItemScalarFieldEnum | Prisma.LostFoundItemScalarFieldEnum[]
+}
+
+/**
+ * User.createdStaffTokens
+ */
+export type User$createdStaffTokensArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the StaffSignupToken
+   */
+  select?: Prisma.StaffSignupTokenSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the StaffSignupToken
+   */
+  omit?: Prisma.StaffSignupTokenOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.StaffSignupTokenInclude<ExtArgs> | null
+  where?: Prisma.StaffSignupTokenWhereInput
+  orderBy?: Prisma.StaffSignupTokenOrderByWithRelationInput | Prisma.StaffSignupTokenOrderByWithRelationInput[]
+  cursor?: Prisma.StaffSignupTokenWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.StaffSignupTokenScalarFieldEnum | Prisma.StaffSignupTokenScalarFieldEnum[]
+}
+
+/**
+ * User.createdPositionOptions
+ */
+export type User$createdPositionOptionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the StaffPositionOption
+   */
+  select?: Prisma.StaffPositionOptionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the StaffPositionOption
+   */
+  omit?: Prisma.StaffPositionOptionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.StaffPositionOptionInclude<ExtArgs> | null
+  where?: Prisma.StaffPositionOptionWhereInput
+  orderBy?: Prisma.StaffPositionOptionOrderByWithRelationInput | Prisma.StaffPositionOptionOrderByWithRelationInput[]
+  cursor?: Prisma.StaffPositionOptionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.StaffPositionOptionScalarFieldEnum | Prisma.StaffPositionOptionScalarFieldEnum[]
 }
 
 /**

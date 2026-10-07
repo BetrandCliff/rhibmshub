@@ -1,8 +1,18 @@
-// import { PrismaClient, Role } from "../lib/generated/prisma";
-import { PrismaClient, Role } from "@prisma/client";
+import { loadEnvFile } from "node:process";
+import { neonConfig } from "@neondatabase/serverless";
+import { PrismaNeon } from "@prisma/adapter-neon";
+import { PrismaClient } from "../lib/generated/prisma-node/client";
+import { Role } from "../lib/generated/prisma-node/enums";
 import bcrypt from "bcryptjs";
-const db = new PrismaClient();
+import ws from "ws";
+loadEnvFile(".env");
+const connectionString = process.env.DATABASE_URL;
+if (!connectionString) throw new Error("DATABASE_URL must be set to seed the database.");
+neonConfig.webSocketConstructor = ws;
+const db = new PrismaClient({ adapter: new PrismaNeon({ connectionString }) });
 async function main() {
+    // Open the WebSocket before Prisma's transactional upserts begin.
+    await db.$queryRaw`SELECT 1`;
     const password = await bcrypt.hash("Admin@12345", 12);
     const faculty = await db.faculty.upsert({
         where: { name: "Faculty of Engineering" },
@@ -78,6 +88,7 @@ async function main() {
         'Director of Finance',
         'Accountant',
         'Expense Manager',
+        'President',
         'President’s Assistant',
     ];
     for (const name of staffPositions) {

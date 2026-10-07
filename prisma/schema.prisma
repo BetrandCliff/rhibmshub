@@ -5,6 +5,13 @@ generator client {
   runtime    = "workerd"
 }
 
+generator seedClient {
+  provider   = "prisma-client"
+  output     = "../lib/generated/prisma-node"
+  engineType = "client"
+  runtime    = "nodejs"
+}
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
@@ -36,6 +43,12 @@ enum DocumentType {
   SHARED_FILE
 }
 
+enum StaffTokenCategory {
+  LECTURER
+  HOD_DEAN
+  HIGHER_AUTHORITY
+}
+
 model User {
   id           String @id @default(cuid())
   name         String
@@ -62,6 +75,7 @@ model User {
   jobPostings       JobPosting[]
   mentorProfile     MentorProfile?
   suggestions       Suggestion[]
+  lostFoundPosts    LostFoundItem[] @relation("LostFoundPoster")
   createdStaffTokens StaffSignupToken[] @relation("StaffTokenCreator")
   createdPositionOptions StaffPositionOption[]
 
@@ -315,6 +329,7 @@ model Suggestion {
 model StaffSignupToken {
   id          String    @id @default(cuid())
   token       String    @unique @db.VarChar(10)
+  category    StaffTokenCategory @default(LECTURER)
   expiresAt   DateTime
   usedAt      DateTime?
   createdAt   DateTime  @default(now())
@@ -374,4 +389,27 @@ enum MentorStatus {
   PENDING
   APPROVED
   REJECTED
+}
+
+enum LostFoundType {
+  MISSING
+  FOUND
+}
+
+model LostFoundItem {
+  id            String        @id @default(cuid())
+  type          LostFoundType
+  itemName      String
+  description   String        @db.Text
+  location      String
+  contactName   String
+  contactDetails String
+  imageKey      String        @unique
+  imageName     String
+  imageMimeType String
+  postedById    String?
+  postedBy      User?          @relation("LostFoundPoster", fields: [postedById], references: [id], onDelete: SetNull)
+  createdAt     DateTime      @default(now())
+
+  @@index([type, createdAt])
 }

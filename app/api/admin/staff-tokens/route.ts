@@ -17,7 +17,7 @@ async function adminUser() {
 export async function GET() {
   const user = await adminUser();
   if (!user) return NextResponse.json({ error: 'Administrator access required.' }, { status: 403 });
-  const tokens = await db.staffSignupToken.findMany({ where: { usedAt: null }, orderBy: { createdAt: 'desc' }, select: { id: true, token: true, expiresAt: true, createdAt: true } });
+  const tokens = await db.staffSignupToken.findMany({ where: { usedAt: null }, orderBy: { createdAt: 'desc' }, select: { id: true, token: true, category: true, expiresAt: true, createdAt: true } });
   return NextResponse.json(tokens);
 }
 
@@ -25,7 +25,10 @@ export async function POST(request: Request) {
   const user = await adminUser();
   if (!user) return NextResponse.json({ error: 'Administrator access required.' }, { status: 403 });
   try {
-    const { expiresAt } = await request.json();
+    const { expiresAt, category } = await request.json();
+    if (!['LECTURER', 'HOD_DEAN', 'HIGHER_AUTHORITY'].includes(category)) {
+      return NextResponse.json({ error: 'Choose a valid staff token category.' }, { status: 400 });
+    }
     const expiry = typeof expiresAt === 'string' ? new Date(expiresAt) : new Date(NaN);
     if (Number.isNaN(expiry.getTime()) || expiry <= new Date()) {
       return NextResponse.json({ error: 'Choose an expiration date and time in the future.' }, { status: 400 });
@@ -35,7 +38,7 @@ export async function POST(request: Request) {
       if (attempt >= 5) return NextResponse.json({ error: 'Could not generate a unique token. Try again.' }, { status: 500 });
       token = makeToken();
     }
-    const created = await db.staffSignupToken.create({ data: { token, expiresAt: expiry, createdById: user.id }, select: { id: true, token: true, expiresAt: true, createdAt: true } });
+    const created = await db.staffSignupToken.create({ data: { token, category, expiresAt: expiry, createdById: user.id }, select: { id: true, token: true, category: true, expiresAt: true, createdAt: true } });
     return NextResponse.json(created, { status: 201 });
   } catch {
     return NextResponse.json({ error: 'The staff token could not be created.' }, { status: 500 });

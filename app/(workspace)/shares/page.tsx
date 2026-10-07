@@ -9,9 +9,13 @@ export default async function Shares() {
   const canShare = ['SUPER_ADMIN', 'DEPARTMENT_ADMIN', 'LECTURER', 'OFFICE_STAFF'].includes(user.role);
   const [shares, documents, offices, people] = await Promise.all([
     db.share.findMany({ where: { OR: [{ recipientUserId: user.id }, { recipientGroupId: user.groupId ?? undefined }, { recipientDepartmentId: user.departmentId ?? undefined }, { recipientOfficeId: user.officeId ?? undefined }] }, include: { document: true, sender: true }, orderBy: { createdAt: 'desc' } }),
-    canShare ? db.document.findMany({ where: { uploaderId: user.id }, select: { id: true, title: true }, orderBy: { title: 'asc' } }) : Promise.resolve([]),
+    canShare ? db.document.findMany({
+      where: user.role === 'SUPER_ADMIN' ? undefined : { uploaderId: user.id },
+      select: { id: true, title: true, originalName: true, courseId: true },
+      orderBy: { title: 'asc' },
+    }) : Promise.resolve([]),
     canShare ? db.office.findMany({ orderBy: { name: 'asc' }, select: { id: true, name: true } }) : Promise.resolve([]),
-    canShare ? db.user.findMany({ where: { id: { not: user.id } }, orderBy: { name: 'asc' }, select: { id: true, name: true, email: true } }) : Promise.resolve([]),
+    canShare ? db.user.findMany({ where: { id: { not: user.id } }, orderBy: { name: 'asc' }, select: { id: true, name: true, email: true, staffPosition: true } }) : Promise.resolve([]),
   ]);
   return <>
     <div className="top"><div><div className="eyebrow">DOCUMENT ACCESS</div><h1>Shared files</h1><p>Send a resource to the right person or office, and see what others have shared with you.</p></div></div>

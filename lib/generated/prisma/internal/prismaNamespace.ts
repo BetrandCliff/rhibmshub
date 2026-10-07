@@ -405,8 +405,12 @@ export const ModelName = {
   AuditLog: 'AuditLog',
   Supervision: 'Supervision',
   Announcement: 'Announcement',
+  Suggestion: 'Suggestion',
+  StaffSignupToken: 'StaffSignupToken',
+  StaffPositionOption: 'StaffPositionOption',
   JobPosting: 'JobPosting',
-  MentorProfile: 'MentorProfile'
+  MentorProfile: 'MentorProfile',
+  LostFoundItem: 'LostFoundItem'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -422,7 +426,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "faculty" | "department" | "program" | "level" | "academicGroup" | "course" | "office" | "document" | "documentAccessRule" | "userDocumentAccess" | "share" | "auditLog" | "supervision" | "announcement" | "jobPosting" | "mentorProfile"
+    modelProps: "user" | "faculty" | "department" | "program" | "level" | "academicGroup" | "course" | "office" | "document" | "documentAccessRule" | "userDocumentAccess" | "share" | "auditLog" | "supervision" | "announcement" | "suggestion" | "staffSignupToken" | "staffPositionOption" | "jobPosting" | "mentorProfile" | "lostFoundItem"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1536,6 +1540,228 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    Suggestion: {
+      payload: Prisma.$SuggestionPayload<ExtArgs>
+      fields: Prisma.SuggestionFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.SuggestionFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SuggestionPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.SuggestionFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SuggestionPayload>
+        }
+        findFirst: {
+          args: Prisma.SuggestionFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SuggestionPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.SuggestionFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SuggestionPayload>
+        }
+        findMany: {
+          args: Prisma.SuggestionFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SuggestionPayload>[]
+        }
+        create: {
+          args: Prisma.SuggestionCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SuggestionPayload>
+        }
+        createMany: {
+          args: Prisma.SuggestionCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.SuggestionCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SuggestionPayload>[]
+        }
+        delete: {
+          args: Prisma.SuggestionDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SuggestionPayload>
+        }
+        update: {
+          args: Prisma.SuggestionUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SuggestionPayload>
+        }
+        deleteMany: {
+          args: Prisma.SuggestionDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.SuggestionUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.SuggestionUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SuggestionPayload>[]
+        }
+        upsert: {
+          args: Prisma.SuggestionUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SuggestionPayload>
+        }
+        aggregate: {
+          args: Prisma.SuggestionAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateSuggestion>
+        }
+        groupBy: {
+          args: Prisma.SuggestionGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SuggestionGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.SuggestionCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SuggestionCountAggregateOutputType> | number
+        }
+      }
+    }
+    StaffSignupToken: {
+      payload: Prisma.$StaffSignupTokenPayload<ExtArgs>
+      fields: Prisma.StaffSignupTokenFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.StaffSignupTokenFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StaffSignupTokenPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.StaffSignupTokenFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StaffSignupTokenPayload>
+        }
+        findFirst: {
+          args: Prisma.StaffSignupTokenFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StaffSignupTokenPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.StaffSignupTokenFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StaffSignupTokenPayload>
+        }
+        findMany: {
+          args: Prisma.StaffSignupTokenFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StaffSignupTokenPayload>[]
+        }
+        create: {
+          args: Prisma.StaffSignupTokenCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StaffSignupTokenPayload>
+        }
+        createMany: {
+          args: Prisma.StaffSignupTokenCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.StaffSignupTokenCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StaffSignupTokenPayload>[]
+        }
+        delete: {
+          args: Prisma.StaffSignupTokenDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StaffSignupTokenPayload>
+        }
+        update: {
+          args: Prisma.StaffSignupTokenUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StaffSignupTokenPayload>
+        }
+        deleteMany: {
+          args: Prisma.StaffSignupTokenDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.StaffSignupTokenUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.StaffSignupTokenUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StaffSignupTokenPayload>[]
+        }
+        upsert: {
+          args: Prisma.StaffSignupTokenUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StaffSignupTokenPayload>
+        }
+        aggregate: {
+          args: Prisma.StaffSignupTokenAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateStaffSignupToken>
+        }
+        groupBy: {
+          args: Prisma.StaffSignupTokenGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.StaffSignupTokenGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.StaffSignupTokenCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.StaffSignupTokenCountAggregateOutputType> | number
+        }
+      }
+    }
+    StaffPositionOption: {
+      payload: Prisma.$StaffPositionOptionPayload<ExtArgs>
+      fields: Prisma.StaffPositionOptionFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.StaffPositionOptionFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StaffPositionOptionPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.StaffPositionOptionFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StaffPositionOptionPayload>
+        }
+        findFirst: {
+          args: Prisma.StaffPositionOptionFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StaffPositionOptionPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.StaffPositionOptionFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StaffPositionOptionPayload>
+        }
+        findMany: {
+          args: Prisma.StaffPositionOptionFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StaffPositionOptionPayload>[]
+        }
+        create: {
+          args: Prisma.StaffPositionOptionCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StaffPositionOptionPayload>
+        }
+        createMany: {
+          args: Prisma.StaffPositionOptionCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.StaffPositionOptionCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StaffPositionOptionPayload>[]
+        }
+        delete: {
+          args: Prisma.StaffPositionOptionDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StaffPositionOptionPayload>
+        }
+        update: {
+          args: Prisma.StaffPositionOptionUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StaffPositionOptionPayload>
+        }
+        deleteMany: {
+          args: Prisma.StaffPositionOptionDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.StaffPositionOptionUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.StaffPositionOptionUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StaffPositionOptionPayload>[]
+        }
+        upsert: {
+          args: Prisma.StaffPositionOptionUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StaffPositionOptionPayload>
+        }
+        aggregate: {
+          args: Prisma.StaffPositionOptionAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateStaffPositionOption>
+        }
+        groupBy: {
+          args: Prisma.StaffPositionOptionGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.StaffPositionOptionGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.StaffPositionOptionCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.StaffPositionOptionCountAggregateOutputType> | number
+        }
+      }
+    }
     JobPosting: {
       payload: Prisma.$JobPostingPayload<ExtArgs>
       fields: Prisma.JobPostingFieldRefs
@@ -1684,6 +1910,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    LostFoundItem: {
+      payload: Prisma.$LostFoundItemPayload<ExtArgs>
+      fields: Prisma.LostFoundItemFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.LostFoundItemFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LostFoundItemPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.LostFoundItemFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LostFoundItemPayload>
+        }
+        findFirst: {
+          args: Prisma.LostFoundItemFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LostFoundItemPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.LostFoundItemFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LostFoundItemPayload>
+        }
+        findMany: {
+          args: Prisma.LostFoundItemFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LostFoundItemPayload>[]
+        }
+        create: {
+          args: Prisma.LostFoundItemCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LostFoundItemPayload>
+        }
+        createMany: {
+          args: Prisma.LostFoundItemCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.LostFoundItemCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LostFoundItemPayload>[]
+        }
+        delete: {
+          args: Prisma.LostFoundItemDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LostFoundItemPayload>
+        }
+        update: {
+          args: Prisma.LostFoundItemUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LostFoundItemPayload>
+        }
+        deleteMany: {
+          args: Prisma.LostFoundItemDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.LostFoundItemUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.LostFoundItemUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LostFoundItemPayload>[]
+        }
+        upsert: {
+          args: Prisma.LostFoundItemUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LostFoundItemPayload>
+        }
+        aggregate: {
+          args: Prisma.LostFoundItemAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateLostFoundItem>
+        }
+        groupBy: {
+          args: Prisma.LostFoundItemGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LostFoundItemGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.LostFoundItemCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LostFoundItemCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1729,6 +2029,8 @@ export const UserScalarFieldEnum = {
   email: 'email',
   passwordHash: 'passwordHash',
   role: 'role',
+  staffPosition: 'staffPosition',
+  staffDepartment: 'staffDepartment',
   departmentId: 'departmentId',
   groupId: 'groupId',
   officeId: 'officeId',
@@ -1906,6 +2208,39 @@ export const AnnouncementScalarFieldEnum = {
 export type AnnouncementScalarFieldEnum = (typeof AnnouncementScalarFieldEnum)[keyof typeof AnnouncementScalarFieldEnum]
 
 
+export const SuggestionScalarFieldEnum = {
+  id: 'id',
+  message: 'message',
+  senderId: 'senderId',
+  createdAt: 'createdAt'
+} as const
+
+export type SuggestionScalarFieldEnum = (typeof SuggestionScalarFieldEnum)[keyof typeof SuggestionScalarFieldEnum]
+
+
+export const StaffSignupTokenScalarFieldEnum = {
+  id: 'id',
+  token: 'token',
+  category: 'category',
+  expiresAt: 'expiresAt',
+  usedAt: 'usedAt',
+  createdAt: 'createdAt',
+  createdById: 'createdById'
+} as const
+
+export type StaffSignupTokenScalarFieldEnum = (typeof StaffSignupTokenScalarFieldEnum)[keyof typeof StaffSignupTokenScalarFieldEnum]
+
+
+export const StaffPositionOptionScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  createdAt: 'createdAt',
+  createdById: 'createdById'
+} as const
+
+export type StaffPositionOptionScalarFieldEnum = (typeof StaffPositionOptionScalarFieldEnum)[keyof typeof StaffPositionOptionScalarFieldEnum]
+
+
 export const JobPostingScalarFieldEnum = {
   id: 'id',
   title: 'title',
@@ -1938,6 +2273,24 @@ export const MentorProfileScalarFieldEnum = {
 } as const
 
 export type MentorProfileScalarFieldEnum = (typeof MentorProfileScalarFieldEnum)[keyof typeof MentorProfileScalarFieldEnum]
+
+
+export const LostFoundItemScalarFieldEnum = {
+  id: 'id',
+  type: 'type',
+  itemName: 'itemName',
+  description: 'description',
+  location: 'location',
+  contactName: 'contactName',
+  contactDetails: 'contactDetails',
+  imageKey: 'imageKey',
+  imageName: 'imageName',
+  imageMimeType: 'imageMimeType',
+  postedById: 'postedById',
+  createdAt: 'createdAt'
+} as const
+
+export type LostFoundItemScalarFieldEnum = (typeof LostFoundItemScalarFieldEnum)[keyof typeof LostFoundItemScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -2121,6 +2474,20 @@ export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel,
 
 
 /**
+ * Reference to a field of type 'StaffTokenCategory'
+ */
+export type EnumStaffTokenCategoryFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StaffTokenCategory'>
+    
+
+
+/**
+ * Reference to a field of type 'StaffTokenCategory[]'
+ */
+export type ListEnumStaffTokenCategoryFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StaffTokenCategory[]'>
+    
+
+
+/**
  * Reference to a field of type 'MentorStatus'
  */
 export type EnumMentorStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MentorStatus'>
@@ -2131,6 +2498,20 @@ export type EnumMentorStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$Pri
  * Reference to a field of type 'MentorStatus[]'
  */
 export type ListEnumMentorStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MentorStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'LostFoundType'
+ */
+export type EnumLostFoundTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LostFoundType'>
+    
+
+
+/**
+ * Reference to a field of type 'LostFoundType[]'
+ */
+export type ListEnumLostFoundTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LostFoundType[]'>
     
 
 
@@ -2249,8 +2630,12 @@ export type GlobalOmitConfig = {
   auditLog?: Prisma.AuditLogOmit
   supervision?: Prisma.SupervisionOmit
   announcement?: Prisma.AnnouncementOmit
+  suggestion?: Prisma.SuggestionOmit
+  staffSignupToken?: Prisma.StaffSignupTokenOmit
+  staffPositionOption?: Prisma.StaffPositionOptionOmit
   jobPosting?: Prisma.JobPostingOmit
   mentorProfile?: Prisma.MentorProfileOmit
+  lostFoundItem?: Prisma.LostFoundItemOmit
 }
 
 /* Types for Logging */

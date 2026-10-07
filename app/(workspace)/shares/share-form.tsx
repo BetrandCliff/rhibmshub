@@ -4,9 +4,9 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
-type DocumentOption = { id: string; title: string };
+type DocumentOption = { id: string; title: string; originalName: string; courseId: string | null };
 type Option = { id: string; name: string };
-type Person = Option & { email: string };
+type Person = Option & { email: string; staffPosition: string | null };
 
 export default function ShareFileForm({
   documents,
@@ -17,11 +17,19 @@ export default function ShareFileForm({
   offices: Option[];
   people: Person[];
 }) {
+  const [source, setSource] = useState<'uploaded' | 'computer'>(documents.length ? 'uploaded' : 'computer');
   const [targetType, setTargetType] = useState<'USER' | 'OFFICE'>('USER');
+  const [documentId, setDocumentId] = useState('');
+  const [documentSearch, setDocumentSearch] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [busy, setBusy] = useState(false);
   const router = useRouter();
+  const courseRecipientsOnly = source === 'uploaded' && Boolean(documents.find((document) => document.id === documentId)?.courseId);
+  const eligiblePeople = courseRecipientsOnly ? people.filter((person) => /^(hod\b|head\s+of\s+department\b|dean\b)/i.test(person.staffPosition?.trim() ?? '')) : people;
+  const matchingDocuments = documents.filter((document) =>
+    document.id === documentId || `${document.title} ${document.originalName}`.toLowerCase().includes(documentSearch.trim().toLowerCase()),
+  );
 
   async function submit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -32,8 +40,36 @@ export default function ShareFileForm({
     const element = e.currentTarget;
     const values = new FormData(element);
 
-    const body = {
-      documentId: values.get('documentId'),
+    try {
+      let selectedDocumentId = values.get('documentId');
+
+      if (source === 'computer') {
+        const file = values.get('file');
+        if (!(file instanceof File) || !file.size) {
+          setError('Choose a file from your computer first.');
+          setBusy(false);
+          return;
+        }
+
+        const upload = new FormData();
+        upload.set('file', file);
+        upload.set('title', file.name.replace(/\.[^.]+$/, '') || file.name);
+        const uploadResponse = await fetch('/api/documents/upload', {
+          method: 'POST',
+          headers: { Accept: 'application/json' },
+          body: upload,
+        });
+        const uploadResult = await uploadResponse.json().catch(() => ({}));
+        if (!uploadResponse.ok || typeof uploadResult.id !== 'string') {
+          setError(uploadResult.error || 'The file could not be uploaded.');
+          setBusy(false);
+          return;
+        }
+        selectedDocumentId = uploadResult.id;
+      }
+
+      const body = {
+        documentId: selectedDocumentId,
       targetType,
       ...(targetType === 'USER'
         ? { recipientUserId: values.get('recipient') }
@@ -42,26 +78,35 @@ export default function ShareFileForm({
       message: values.get('message'),
     };
 
-    const response = await fetch('/api/shares', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(body),
-    });
+      const response = await fetch('/api/shares', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+      });
 
-    const data = await response.json().catch(() => ({}));
+      const data = await response.json().catch(() => ({}));
 
-    if (!response.ok) {
-      setError(data.error || 'The document could not be shared.');
+      if (!response.ok) {
+        setError(source === 'computer'
+          ? `The file was uploaded, but could not be shared: ${data.error || 'Please try again.'} It is now in your uploaded files.`
+          : data.error || 'The document could not be shared.');
+        if (source === 'computer') router.refresh();
+        setBusy(false);
+        return;
+      }
+
+      element.reset();
+      setSource(documents.length ? 'uploaded' : 'computer');
+      setDocumentId('');
+      setDocumentSearch('');
+      setTargetType('USER');
+      setSuccess('The document is now shared with the selected recipient.');
       setBusy(false);
-      return;
+      router.refresh();
+    } catch {
+      setError('We could not reach the server. Check your connection and try again.');
+      setBusy(false);
     }
-
-    element.reset();
-    setSuccess('The document is now shared with the selected recipient.');
-    setBusy(false);
-    router.refresh();
   }
 
   return (
@@ -76,23 +121,58 @@ export default function ShareFileForm({
 
       <div className="form-pair">
         <div className="field">
-          <label>Choose a document</label>
+          <label>Document source</label>
+          <select
+            value={source}
+            onChange={(event) => {
+              setSource(event.target.value as 'uploaded' | 'computer');
+              setDocumentId('');
+              setTargetType('USER');
+            }}
+          >
+            <option value="uploaded">Choose an uploaded document</option>
+            <option value="computer">Upload a file from my computer</option>
+          </select>
+
+          {source === 'uploaded' ? <>
+          <label htmlFor="document-search">Find an uploaded document</label>
+          <input
+            className="input"
+            id="document-search"
+            type="search"
+            value={documentSearch}
+            onChange={(event) => setDocumentSearch(event.target.value)}
+            placeholder="Search by title or file name"
+            disabled={!documents.length}
+          />
+          <label htmlFor="documentId">Choose a document</label>
 
           <select
+            id="documentId"
             name="documentId"
             required
-            defaultValue=""
+            value={documentId}
+            onChange={(event) => { setDocumentId(event.target.value); setTargetType('USER'); }}
           >
             <option value="" disabled>
-              Select one of your files
+              Select an uploaded file
             </option>
 
-            {documents.map((document) => (
+            {matchingDocuments.map((document) => (
               <option value={document.id} key={document.id}>
-                {document.title}
+                {document.title} — {document.originalName}
               </option>
             ))}
           </select>
+          {documents.length > 0 && matchingDocuments.length === 0 && (
+            <small className="muted">No uploaded files match that search.</small>
+          )}
+          {!documents.length && <small className="muted">You have no uploaded documents yet. Choose the computer option to upload one.</small>}
+          </> : <>
+            <label htmlFor="share-file">Choose a file from your computer</label>
+            <input className="input" id="share-file" name="file" type="file" accept=".pdf,.doc,.docx" required />
+            <small className="muted">PDF and Word documents are supported.</small>
+          </>}
         </div>
 
         <div className="field">
@@ -105,7 +185,7 @@ export default function ShareFileForm({
             }
           >
             <option value="USER">A person</option>
-            <option value="OFFICE">An office</option>
+            {!courseRecipientsOnly && <option value="OFFICE">An office</option>}
           </select>
         </div>
       </div>
@@ -128,7 +208,7 @@ export default function ShareFileForm({
             </option>
 
             {targetType === 'USER'
-              ? people.map((person) => (
+              ? eligiblePeople.map((person) => (
                   <option value={person.id} key={person.id}>
                     {person.name} · {person.email}
                   </option>
@@ -176,7 +256,7 @@ export default function ShareFileForm({
         <div className="field share-button-field">
           <button
             className="btn"
-            disabled={busy || !documents.length}
+            disabled={busy || (source === 'uploaded' && !documents.length)}
           >
             {busy ? 'Sharing…' : 'Share document  →'}
           </button>
@@ -185,9 +265,10 @@ export default function ShareFileForm({
 
       {!documents.length && (
         <p className="share-hint">
-          Upload a document first to share it from your workspace.
+          No uploaded documents are available to share yet. Upload a document first.
         </p>
       )}
+      {courseRecipientsOnly && <p className="share-hint">Course materials can only be shared directly with HODs and Deans.</p>}
     </form>
   );
 }

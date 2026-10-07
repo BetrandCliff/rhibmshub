@@ -114,6 +114,21 @@ export type Supervision = Prisma.SupervisionModel
  */
 export type Announcement = Prisma.AnnouncementModel
 /**
+ * Model Suggestion
+ * 
+ */
+export type Suggestion = Prisma.SuggestionModel
+/**
+ * Model StaffSignupToken
+ * 
+ */
+export type StaffSignupToken = Prisma.StaffSignupTokenModel
+/**
+ * Model StaffPositionOption
+ * 
+ */
+export type StaffPositionOption = Prisma.StaffPositionOptionModel
+/**
  * Model JobPosting
  * 
  */
@@ -123,3 +138,8 @@ export type JobPosting = Prisma.JobPostingModel
  * 
  */
 export type MentorProfile = Prisma.MentorProfileModel
+/**
+ * Model LostFoundItem
+ * 
+ */
+export type LostFoundItem = Prisma.LostFoundItemModel

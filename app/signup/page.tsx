@@ -16,6 +16,8 @@ export default function Signup() {
   const [positions, setPositions] = useState<SignupOption[]>([]);
   const [departments, setDepartments] = useState<SignupOption[]>([]);
   const [loadingOptions, setLoadingOptions] = useState(false);
+  const selectedPosition = positions.find((position) => position.id === staffPositionId)?.name.toLowerCase().replace(/[^a-z]/g, '') || '';
+  const needsDepartment = selectedPosition.includes('lecturer') || selectedPosition === 'hod' || selectedPosition.includes('headofdepartment');
   const router = useRouter();
 
   useEffect(() => {
@@ -37,28 +39,39 @@ export default function Signup() {
     setError('');
     setBusy(true);
     const form = new FormData(event.currentTarget);
-    const response = await fetch('/api/auth/register', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        name: form.get('name'),
-        email: form.get('email'),
-        password: form.get('password'),
-        isStaff,
-        staffToken: form.get('staffToken'),
-        staffPositionId,
-        staffDepartmentId,
-      }),
-    });
-    const data = await response.json().catch(() => ({}));
-    if (!response.ok) {
-      setError(data.error || 'We could not create your account.');
+    try {
+      const response = await fetch('/api/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: form.get('name'),
+          email: form.get('email'),
+          password: form.get('password'),
+          isStaff,
+          staffToken: form.get('staffToken'),
+          staffPositionId,
+          staffDepartmentId,
+        }),
+      });
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok) {
+        setError(data.error || 'We could not create your account.');
+        setBusy(false);
+        return;
+      }
+      if (data.authenticated === false) {
+        showToast('Account created', 'Sign in with your new account to continue.', 'success');
+        router.push('/login');
+        router.refresh();
+        return;
+      }
+      showToast('Account ready', 'Welcome to your academic workspace.', 'success');
+      router.push('/dashboard');
+      router.refresh();
+    } catch {
+      setError('We could not reach the server. Check your connection and try again.');
       setBusy(false);
-      return;
     }
-    showToast('Account ready', 'Welcome to your academic workspace.', 'success');
-    router.push('/dashboard');
-    router.refresh();
   }
 
   return <main className="auth-page">
@@ -77,8 +90,8 @@ export default function Signup() {
         <label className="auth-label">Password<input name="password" type="password" required minLength={8} autoComplete="new-password" placeholder="At least 8 characters"/><small>Use at least 8 characters.</small></label>
         <label className="staff-signup-toggle"><input type="checkbox" checked={isStaff} onChange={(event) => setIsStaff(event.target.checked)}/><span><b>I am a staff member</b><small>Staff signup requires an administrator token and your position and department.</small></span></label>
         {isStaff && <>
-          <label className="auth-label">Position<select className="input" name="staffPositionId" value={staffPositionId} onChange={(event) => setStaffPositionId(event.target.value)} required disabled={loadingOptions}><option value="">{loadingOptions ? 'Loading positions…' : 'Select your position'}</option>{positions.map((position) => <option key={position.id} value={position.id}>{position.name}</option>)}</select></label>
-          <label className="auth-label">Department<select className="input" name="staffDepartmentId" value={staffDepartmentId} onChange={(event) => setStaffDepartmentId(event.target.value)} required disabled={loadingOptions}><option value="">{loadingOptions ? 'Loading departments…' : 'Select your department'}</option>{departments.map((department) => <option key={department.id} value={department.id}>{department.name}</option>)}</select></label>
+          <label className="auth-label">Position<select className="input" name="staffPositionId" value={staffPositionId} onChange={(event) => { setStaffPositionId(event.target.value); setStaffDepartmentId(''); }} required disabled={loadingOptions}><option value="">{loadingOptions ? 'Loading positions…' : 'Select your position'}</option>{positions.map((position) => <option key={position.id} value={position.id}>{position.name}</option>)}</select></label>
+          {needsDepartment && <label className="auth-label">Department<small>Only HODs and lecturers should select a department.</small><select className="input" name="staffDepartmentId" value={staffDepartmentId} onChange={(event) => setStaffDepartmentId(event.target.value)} required disabled={loadingOptions}><option value="">{loadingOptions ? 'Loading departments…' : 'Select your department'}</option>{departments.map((department) => <option key={department.id} value={department.id}>{department.name}</option>)}</select></label>}
           {!loadingOptions && (!positions.length || !departments.length) && <div className="auth-note">Staff signup options have not been configured yet. Ask an administrator to add positions and departments.</div>}
           <label className="auth-label">Staff signup token<input name="staffToken" required minLength={10} maxLength={10} autoComplete="off" placeholder="10-character token"/><small>Enter the token exactly as provided.</small></label>
         </>}
